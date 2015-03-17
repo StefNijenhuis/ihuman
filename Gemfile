@@ -48,6 +48,9 @@ group :development, :test do
   gem 'rspec', '~> 3.0'
   gem 'rspec-rails', '~> 3.0'
 
+  # Factory Girl
+  gem 'factory_girl', '~> 4.5'
+
   # Capistrano
   gem 'capistrano', '~> 3.4'
   gem 'capistrano-rails', '~> 1.1'
