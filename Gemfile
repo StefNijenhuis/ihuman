@@ -22,6 +22,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+# HTML preprocessor
+gem 'slim', '~> 3.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -32,7 +34,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
+group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -41,5 +43,37 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # Rspec
+  gem 'rspec', '~> 3.0'
+  gem 'rspec-rails', '~> 3.0'
+
+  # Capistrano
+  gem 'capistrano', '~> 3.4'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-bundler', '~> 1.1'
+
+  # Cucumber
+  gem 'cucumber-rails', '~> 1.4'
+  gem 'capybara', '~> 2.4'
+
+  # Guard & Plugins
+  gem 'guard', '~> 2.12'
+  gem 'guard-rspec', '~> 4.5'
+  gem 'guard-cucumber', '~> 1.5'
+  gem 'guard-bundler', '~> 2.1'
+  gem 'guard-coffeescript', '~> 2.0'
+  gem 'guard-rails', '~> 0.7'
+  gem 'guard-sass', '~> 1.6'
+
+  # Terminal Notifier
+  gem 'terminal-notifier'
+  gem 'terminal-notifier-guard'
+
+  # TODO Database cleaner
+  # gem 'database_cleaner', '~> 1.4'
+
+  # TODO Selenium Webdriver
+  # gem 'selenium-webdriver', '~> 2.45'
 end
 
