@@ -34,7 +34,7 @@ gem 'slim', '~> 3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development do
+group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
@@ -54,24 +54,24 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1'
 
   # Cucumber
-  gem 'cucumber-rails', '~> 1.4'
+  gem 'cucumber-rails', '~> 1.4', require: false
   gem 'capybara', '~> 2.4'
 
   # Guard & Plugins
   gem 'guard', '~> 2.12'
-  gem 'guard-rspec', '~> 4.5'
-  gem 'guard-cucumber', '~> 1.5'
+  gem 'guard-rspec', '~> 4.5', require: false
+  gem 'guard-rails', '~> 0.7', require: false
+  gem 'guard-cucumber', '~> 1.5', require: false
   gem 'guard-bundler', '~> 2.1'
   gem 'guard-coffeescript', '~> 2.0'
-  gem 'guard-rails', '~> 0.7'
   gem 'guard-sass', '~> 1.6'
 
   # Terminal Notifier
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard'
 
-  # TODO Database cleaner
-  # gem 'database_cleaner', '~> 1.4'
+  # Database cleaner (configuration required)
+  gem 'database_cleaner', '~> 1.4'
 
   # TODO Selenium Webdriver
   # gem 'selenium-webdriver', '~> 2.45'
