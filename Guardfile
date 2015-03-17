@@ -35,15 +35,15 @@ guard :bundler do
   files.each { |file| watch(helper.real_path(file)) }
 end
 
-coffeescript_options = {
-  input: 'app/assets/javascripts',
-  output: 'app/assets/javascripts',
-  patterns: [%r{^app/assets/javascripts/(.+\.(?:coffee|coffee\.md|litcoffee))$}]
-}
+# coffeescript_options = {
+#   input: 'app/assets/javascripts',
+#   output: 'app/assets/javascripts',
+#   patterns: [%r{^app/assets/javascripts/(.+\.(?:coffee|coffee\.md|litcoffee))$}]
+# }
 
-guard 'coffeescript', coffeescript_options do
-  coffeescript_options[:patterns].each { |pattern| watch(pattern) }
-end
+# guard 'coffeescript', coffeescript_options do
+#   coffeescript_options[:patterns].each { |pattern| watch(pattern) }
+# end
 
 guard "cucumber" do
   watch(%r{^features/.+\.feature$})
