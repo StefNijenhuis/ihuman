@@ -55,6 +55,7 @@ group :development, :test do
   gem 'capistrano', '~> 3.4'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1'
+  gem 'capistrano-passenger', '~> 0.0.2'
 
   # Cucumber
   gem 'cucumber-rails', '~> 1.4', require: false
