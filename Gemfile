@@ -79,6 +79,9 @@ group :development, :test do
   # Database cleaner (configuration required)
   gem 'database_cleaner', '~> 1.4'
 
+  # Letter opener
+  gem "letter_opener"
+
   # TODO Selenium Webdriver
   # gem 'selenium-webdriver', '~> 2.45'
 end
