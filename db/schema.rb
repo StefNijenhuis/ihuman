@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401084244) do
+ActiveRecord::Schema.define(version: 20150407104111) do
+
+  create_table "briefings", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "scene_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "briefings", ["scene_id"], name: "index_briefings_on_scene_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -26,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150401084244) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "role",          default: 0,  null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
