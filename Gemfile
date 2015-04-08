@@ -33,9 +33,6 @@ gem 'pundit'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 gem 'pg', group: :production
 
 group :development, :test do
@@ -63,6 +60,7 @@ group :development, :test do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1'
   gem 'capistrano-passenger', '~> 0.0.2'
+  gem 'capistrano-rbenv', '~> 2.0'
 
   # Cucumber
   gem 'cucumber-rails', '~> 1.4', require: false

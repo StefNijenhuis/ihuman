@@ -6,7 +6,6 @@ set :repo_url, 'git@github.com:StefNijenhuis/ihuman.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
-set :branch, fetch(:branch, "capistrano")
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/ihuman'
@@ -34,6 +33,20 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
+
+# Capfile
+require 'capistrano/rbenv'
+
+# config/deploy.rb
+set :rbenv_type, :user # or :system, depends on your rbenv setup
+set :rbenv_ruby, '2.2.1'
+
+# in case you want to set ruby version from the file:
+#set :rbenv_ruby, File.read('.ruby-version').strip
+
+set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rbenv_roles, :all # default value
 
 namespace :deploy do
 
