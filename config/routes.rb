@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'pages#home'
 
-  devise_for :user
+  devise_for :user, controllers: { registrations: 'registrations' }
+
+  #devise_for :user
 
   scope '/admin' do
     resources :users

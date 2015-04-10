@@ -4,9 +4,24 @@ h2 Edit #{resource_name.to_s.humanize}
   = devise_error_messages!
 
   .field
+    = f.label :first_name
+    br
+    = f.text_field :first_name, autofocus: true
+
+  .field
+    = f.label :suffix
+    br
+    = f.text_field  :suffix
+
+  .field
+    = f.label :last_name
+    br
+    = f.text_field :last_name
+
+  .field
     = f.label :email
     br
-    = f.email_field :email, autofocus: true
+    = f.email_field :email
 
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     div Currently waiting confirmation for: #{resource.unconfirmed_email}
@@ -32,11 +47,5 @@ h2 Edit #{resource_name.to_s.humanize}
 
   .actions
     = f.submit "Update"
-
-h3 Cancel my account
-
-p
-  | Unhappy?
-  = button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
 
 = link_to "Back", :back
