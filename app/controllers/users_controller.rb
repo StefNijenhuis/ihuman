@@ -20,7 +20,7 @@ class UsersController < ApplicationController
         :password => password,
         :password_confirmation => password
       })
-      if user.save
+      if user.save(:validate => false)
         # userCreateMailer.welcome_email(@user).deliver_late
       end
     end
