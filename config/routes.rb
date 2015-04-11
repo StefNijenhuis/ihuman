@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  get "invite", to: "users#invite"
+  post "invite_send", to: "users#invite_send"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
