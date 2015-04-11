@@ -19,3 +19,6 @@
 
 # Ignore Apple crap
 .DS_Store
+
+# Other
+Gemfile.lock
