@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   #devise_for :user
 
   scope '/admin' do
-    resources :users
+    resources :users do
+      collection do
+        get 'invite'
+        post "invite", to: "users#send_invites"
+      end
+    end
   end
 
   # Example of regular route:
