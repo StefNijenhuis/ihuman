@@ -24,6 +24,10 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # HTML preprocessor
 gem 'slim', '~> 3.0'
+# Device authentication
+gem 'devise'
+# Pundit authorization
+gem 'pundit'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -76,6 +80,9 @@ group :development, :test do
 
   # Database cleaner (configuration required)
   gem 'database_cleaner', '~> 1.4'
+
+  # Letter opener
+  gem "letter_opener"
 
   # TODO Selenium Webdriver
   # gem 'selenium-webdriver', '~> 2.45'
