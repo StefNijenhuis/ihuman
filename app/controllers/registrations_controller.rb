@@ -1,12 +1,14 @@
 class RegistrationsController < Devise::RegistrationsController
-  prepend_before_filter :require_no_authentication, only: [:new, :create, :cancel]
+  prepend_before_filter :require_no_authentication, only: [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy]
 
   # GET /resource/sign_up
   def new
     build_resource({})
-    set_minimum_password_length
-    yield resource if block_given?
+    @validatable = devise_mapping.validatable?
+    if @validatable
+      @minimum_password_length = resource_class.password_length.min
+    end
     respond_with self.resource
   end
 
@@ -14,9 +16,9 @@ class RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
-    resource.save
+    resource_saved = resource.save
     yield resource if block_given?
-    if resource.persisted?
+    if resource_saved
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
         sign_up(resource_name, resource)
@@ -28,7 +30,10 @@ class RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      set_minimum_password_length
+      @validatable = devise_mapping.validatable?
+      if @validatable
+        @minimum_password_length = resource_class.password_length.min
+      end
       respond_with resource
     end
   end
@@ -47,7 +52,6 @@ class RegistrationsController < Devise::RegistrationsController
 
     resource_updated = update_resource(resource, account_update_params)
     yield resource if block_given?
-
     if resource_updated
       # Account activation
       @user = User.find(current_user.id)
@@ -146,9 +150,4 @@ class RegistrationsController < Devise::RegistrationsController
   def account_update_params
     params.require(:user).permit(:first_name, :suffix, :last_name, :email, :password, :password_confirmation, :current_password)
   end
-
-  def translation_scope
-    'devise.registrations'
-  end
-
 end

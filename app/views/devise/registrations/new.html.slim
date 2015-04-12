@@ -4,6 +4,21 @@ h2 Sign up
   = devise_error_messages!
 
   .field
+    = f.label :first_name
+    br
+    = f.text_field :first_name, autofocus: true
+
+  .field
+    = f.label :suffix
+    br
+    = f.text_field  :suffix
+
+  .field
+    = f.label :last_name
+    br
+    = f.text_field :last_name
+
+  .field
     = f.label :email
     br
     = f.email_field :email, autofocus: true
