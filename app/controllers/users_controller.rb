@@ -21,7 +21,7 @@ class UsersController < ApplicationController
         :password_confirmation => password
       })
       if user.save(:validate => false)
-        # userCreateMailer.welcome_email(@user).deliver_late
+        InviteMailer.invite_email(email, password).deliver
       end
     end
   end
