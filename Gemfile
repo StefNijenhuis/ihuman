@@ -29,6 +29,8 @@ gem 'devise'
 # Pundit authorization
 gem 'pundit'
 
+gem 'sprockets', '~> 2.8'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
