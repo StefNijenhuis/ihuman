@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
   after_action :verify_authorized, :only => :index
   skip_before_filter :verify_authenticity_token, :only => :send_invites
 
