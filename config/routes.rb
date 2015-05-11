@@ -9,7 +9,16 @@ Rails.application.routes.draw do
 
   #devise_for :user
 
-  scope '/admin' do
+  # scope '/admin' do
+  #   resources :users do
+  #     collection do
+  #       get 'invite'
+  #       post "invite", to: "users#send_invites"
+  #     end
+  #   end
+  # end
+
+  namespace :admin do
     resources :users do
       collection do
         get 'invite'
