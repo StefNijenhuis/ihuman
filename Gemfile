@@ -27,7 +27,7 @@ gem 'slim', '~> 3.0'
 # Device authentication
 gem 'devise'
 # Pundit authorization
-gem 'pundit'
+gem 'pundit', '~> 1.0'
 
 gem 'sprockets', '~> 2.8'
 
@@ -88,7 +88,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.4'
 
   # Letter opener
-  gem "letter_opener"
+  gem "letter_opener", '~> 1.4'
 
   # TODO Selenium Webdriver
   # gem 'selenium-webdriver', '~> 2.45'
