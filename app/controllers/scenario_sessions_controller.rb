@@ -1,0 +1,2 @@
+class ScenarioSessionsController < ApplicationController
+end
