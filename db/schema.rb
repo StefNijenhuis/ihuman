@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150410101831) do
+ActiveRecord::Schema.define(version: 20150518112309) do
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "sender_id"
+    t.integer  "scenario_session_id"
+    t.string   "role"
+    t.datetime "send_at"
+    t.datetime "read_at"
+  end
+
+  create_table "scenario_sessions", force: :cascade do |t|
+    t.integer  "scenario_id"
+    t.integer  "student_id"
+    t.integer  "teacher_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+  end
+
+  create_table "scenarios", force: :cascade do |t|
+    t.string "roles"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
