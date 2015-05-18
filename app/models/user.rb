@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   enum role: [:user, :admin, :superadmin]
   after_initialize :set_default_role, :if => :new_record?
 
-  validates :first_name, :last_name, presence: true
+  validates :first_name, :surname, presence: true
 
   def set_default_role
     self.role ||= :user
