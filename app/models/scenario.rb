@@ -1,5 +1,5 @@
 class Scenario < ActiveRecord::Base
 
-  has_many :scenario_sessions
+  has_many :scenario_session
 
 end
