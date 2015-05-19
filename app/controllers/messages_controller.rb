@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   def new
     @message = Message.new
     @scenario_session_options = ScenarioSession.where(teacher_id: current_user.id).map{|s| [s.id]}
-
+    # scenario_session has to be set automatically
   end
 
   def create

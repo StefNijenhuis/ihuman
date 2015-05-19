@@ -1,5 +1,7 @@
 class ScenariosController < ApplicationController
 
+  # roles still have to figerd out
+
   def new
     @scenario = Scenario.new
   end
