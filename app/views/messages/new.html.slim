@@ -1,0 +1,21 @@
+h2 Bericht aanmaken
+
+= form_for @message, :url => messages_path(@message), method: :post do |f|
+
+  .field
+    = f.label :scenario_session
+    br
+    = f.select(:scenario_session_id, options_for_select(@scenario_session_options))
+
+  .field
+    = f.label :role
+    br
+    = f.text_field :role, autofocus: true
+
+  .field
+    = f.label :content
+    br
+    = f.text_area :content, autofocus: false
+
+  .actions
+    = f.submit "opslaan"

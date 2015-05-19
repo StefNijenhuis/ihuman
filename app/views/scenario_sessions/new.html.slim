@@ -1,0 +1,26 @@
+h2 Scenario sessie aanmaken
+
+= form_for @scenario_session, :url => scenario_sessions_path(@scenario_session), method: :post do |f|
+
+  .field
+    = f.label :scenario
+    br
+    = f.select(:scenario_id, options_for_select(@scenarios_options))
+
+  .field
+    = f.label :student
+    br
+    = f.select(:student_id, options_for_select(@students_options))
+
+  .field
+    = f.label :teacher
+    br
+    = f.select(:teacher_id, options_for_select(@teachers_options))
+
+  .field
+    = f.label :start_date
+    br
+    = f.text_area :start_date, autofocus: false
+
+  .actions
+    = f.submit "opslaan"
