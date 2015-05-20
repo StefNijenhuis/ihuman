@@ -33,6 +33,12 @@ Rails.application.routes.draw do
     resources :scenarios
   end
 
+  resources :scenarios
+
+  resources :scenario_sessions
+
+  resources :messages
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
