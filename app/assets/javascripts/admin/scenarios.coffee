@@ -8,7 +8,7 @@ ready = ->
       this.node("briefing", null, @briefing)
 
     getObjects: (val, obj) ->
-      obj = (if typeof obj isnt "undefined" then obj else window.obj)
+      obj = (if typeof obj isnt "undefined" then obj else @obj)
       key = "id"
       objects = []
       for i of obj
@@ -23,8 +23,8 @@ ready = ->
     node: (@type, @parent, @content) ->
      switch @type
         when "briefing"
-          if !obj.briefing # Check if briefing exists
-            obj['briefing'] = {
+          if !@obj.briefing # Check if briefing exists
+            @obj['briefing'] = {
               id: id++;
               type:"briefing",
               parent:null,
@@ -36,7 +36,6 @@ ready = ->
         when "question"
           if !@id = null
             parent = this.getObjects(@parent)
-            console.log(parent)
             parent['children'] = {
               id: id++;
               type:"question",
@@ -45,8 +44,8 @@ ready = ->
               children:null
             };
 
-          #console.log(obj);
-
+    json: ->
+      JSON.stringify(@obj);
 
           # container.append('<div class="node">' + @content + '</div>')
         # when "question"
