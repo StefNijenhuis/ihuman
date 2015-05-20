@@ -7,6 +7,33 @@ ready = ->
     constructor: (@obj, @briefing) ->
       this.node("briefing", null, @briefing)
 
+    node: (@type, @parent, @content) ->
+     switch @type
+        when "briefing"
+          if !@obj.briefing # Check if briefing exists
+            @obj['briefing'] = {
+              id: id++;
+              type:"briefing",
+              parent:null,
+              content:@content,
+              children:[]
+            };
+          else
+            obj.briefing.content = @content;
+        when "question"
+          if !@id = null
+            parent = this.getObjects(@parent)
+
+            child = {
+              id: id++;
+              type:"question",
+              parent:@parent,
+              content:@content,
+              children:[]
+            };
+
+            parent.children.push child
+
     getObjects: (val, obj) ->
       obj = (if typeof obj isnt "undefined" then obj else @obj)
       key = "id"
@@ -20,42 +47,17 @@ ready = ->
           break
       objects[0]
 
-    node: (@type, @parent, @content) ->
-     switch @type
-        when "briefing"
-          if !@obj.briefing # Check if briefing exists
-            @obj['briefing'] = {
-              id: id++;
-              type:"briefing",
-              parent:null,
-              content:@content,
-              children:null
-            };
-          else
-            obj.briefing.content = @content;
-        when "question"
-          if !@id = null
-            parent = this.getObjects(@parent)
-            parent['children'] = {
-              id: id++;
-              type:"question",
-              parent:@parent,
-              content:@content,
-              children:null
-            };
-
     save: ->
       JSON.stringify(@obj);
 
     load: (obj) ->
-      JSON.parse( obj );
+      @obj = JSON.parse( obj );
 
+    generate: (obj) ->
+      obj = (if typeof obj isnt "undefined" then obj else @obj)
 
-
-
-          # container.append('<div class="node">' + @content + '</div>')
-        # when "question"
-          # container.append('<div class="node">' + @content + '</div>')
+      for i of obj.briefing.children
+        obj.briefing.children[i]
 
   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
 
