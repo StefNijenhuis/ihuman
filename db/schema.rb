@@ -13,6 +13,16 @@
 
 ActiveRecord::Schema.define(version: 20150518112309) do
 
+  create_table "briefings", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "scene_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "briefings", ["scene_id"], name: "index_briefings_on_scene_id"
+
   create_table "messages", force: :cascade do |t|
     t.string   "content"
     t.integer  "sender_id"
@@ -47,11 +57,11 @@ ActiveRecord::Schema.define(version: 20150518112309) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "role",                   default: 0
+    t.integer  "role",                   default: 0,     null: false
     t.boolean  "activated",              default: false
     t.string   "first_name"
     t.string   "suffix"
-    t.string   "surname"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

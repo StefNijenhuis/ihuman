@@ -44,8 +44,14 @@ ready = ->
               children:null
             };
 
-    json: ->
+    save: ->
       JSON.stringify(@obj);
+
+    load: (obj) ->
+      JSON.parse( obj );
+
+
+
 
           # container.append('<div class="node">' + @content + '</div>')
         # when "question"
