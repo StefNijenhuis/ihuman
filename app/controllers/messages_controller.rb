@@ -1,5 +1,9 @@
 class MessagesController < ApplicationController
 
+  def index
+    @messages = Message.joins(:scenario_session).where(:scenario_sessions => { student_id: current_user } ).all
+  end
+
   def new
     @message = Message.new
     @scenario_session_options = ScenarioSession.where(teacher_id: current_user.id).map{|s| [s.id]}
@@ -9,7 +13,8 @@ class MessagesController < ApplicationController
   def create
     @message = Message.new(message_params)
     @message.sender = current_user
-    @message.send_at = DateTime
+    @message.send_at = Time.now.to_datetime
+
     if @message.save
       redirect_to @message
     end
