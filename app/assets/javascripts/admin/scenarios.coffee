@@ -69,9 +69,11 @@ ready = ->
 
       # Children
 
-    children: (obj) ->
-      for i of obj.children
-        obj.children[i]
+    children: (obj, element) ->
+      for child of obj.children
+        el = $("") # TODO: create dom element
+        if obj.children[child].children
+          this.child(obj.children[child], el)
 
 
   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
