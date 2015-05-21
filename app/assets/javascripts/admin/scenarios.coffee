@@ -94,5 +94,8 @@ ready = ->
 
   #scenario.node("question", null, "test");
 
+jsPlumb.ready ->
+  window.jsPlumb = jsPlumb.getInstance();
+
 $(document).ready(ready)
 $(document).on('page:load', ready)

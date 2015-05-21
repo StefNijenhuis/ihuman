@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require dom.jsPlumb-1.7.5-min.js
 //= require_tree .
