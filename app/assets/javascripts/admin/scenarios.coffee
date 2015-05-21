@@ -67,7 +67,7 @@ ready = ->
       container.empty();
 
       # Briefing
-      $("<ul><li id=\"node-#{obj.briefing.id}\"><div data-id=\"#{obj.briefing.id}\" class=\"node\">#{obj.briefing.content}</div><ul></ul></li></ul>").appendTo(container);
+      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-decision data-id=\"#{obj.briefing.id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.briefing.content}</fc-decision><ul></ul></li></ul>").appendTo(container);
 
       # Children
       this.children(obj.briefing)
@@ -75,12 +75,12 @@ ready = ->
     children: (obj) ->
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
-        $("<li id=\"node-#{obj.children[child].id}\"><div data-id=\"#{obj.children[child].id}\" class=\"node\">#{obj.children[child].content}</div><ul></ul></li>").appendTo(el);
+        $("<li id=\"node-#{obj.children[child].id}\"><fc-decision data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
 
         if obj.children[child].children
           this.children(obj.children[child])
 
-  $(document.body).on "click", ".node", ->
+  $(document.body).on "click", "fc-decision", ->
     alert $(this).attr("data-id")
 
   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");

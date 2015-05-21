@@ -1,3 +1,82 @@
 // Place all the styles related to the admin::scenarios controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+fc-terminator, fc-process, fc-decision {
+  margin: 40px;
+  box-sizing: border-box;
+  display: inline-block;
+  height: 60px;
+  width: 140px;
+  padding: 14px;
+  z-index: 20;
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: 0px 1px 1px rgba(0,0,0,0.8);
+}
+
+fc-terminator {
+  background: #2ecc71;
+  border-radius: 100px;
+}
+
+fc-process {
+  background: #3498db;
+  border-radius: 3px;
+}
+
+fc-decision {
+  background: #f1c40f;
+  border-radius: 3px;
+}
+
+fc-add, fc-remove, .close {
+  height: 30px;
+  width: 30px;
+  display: block;
+  background: #fff;
+  border: 4px solid #838383;
+  position: absolute;
+  margin: 14px 0px 0px 107px;
+  border-radius: 100px;
+  color: #838383;
+  box-shadow: 0px 0px 0px 3px rgba(255,255,255,1);
+  z-index: 20;
+  text-align: center;
+  font-weight: bold;
+}
+
+fc-add:before, .close:before {
+  content: "+";
+  line-height: 24px;
+  font-size: 24px;
+  text-shadow: none;
+}
+
+fc-add:hover, .close:hover {
+  border-color: #000;
+  color: #000;
+  cursor: pointer; cursor: hand;
+}
+
+fc-remove {
+  margin-top: -27px;
+}
+
+fc-add {
+  margin-top: 30px;
+}
+
+fc-remove:before {
+  content: "-";
+  line-height: 20px;
+  font-size: 24px;
+  text-shadow: none;
+}
+
+fc-remove:hover {
+  border-color: #e74c3c;
+  color: #e74c3c;
+  cursor: pointer; cursor: hand;
+}
