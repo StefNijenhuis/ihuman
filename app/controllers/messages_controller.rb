@@ -1,7 +1,9 @@
 class MessagesController < ApplicationController
 
   def index
-    @messages = Message.joins(:scenario_session).where(:scenario_sessions => { student_id: current_user } ).all
+      # The query below is obsolete but it's cool so it's staying
+      # @messages = Message.where.not(sender_id: current_user).joins(:scenario_session).where(:scenario_sessions => { student_id: current_user } ).all
+      @messages = Message.where.not(sender_id: current_user)
   end
 
   def new
