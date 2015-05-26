@@ -1,0 +1,22 @@
+div id="wrapper" class="container"
+  / Sidebar
+  div id="sidebar-wrapper"
+    ul class="sidebar-nav"
+      li = link_to "Scenarios"
+      li = link_to "Inbox"
+      li = link_to "Outbox"
+      li = link_to "Zoeken"
+      li = link_to "Uitloggen", destroy_user_session_path, method: 'DELETE'
+  / Sidebar-wrapper
+  div class="row clearfix"
+    div class="col-md-12 column"
+      nav class="navbar navbar-default navbar-fixed-top"
+        div class="navbar-header"
+          <a href="#menu-toggle" class="menu-button" id="menu-toggle"><span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></a>
+          h2 Inbox
+          div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"
+            form class="navbar-form navbar-left top-search" role="search"
+              div class="form-group"
+                input type="text" class="form-control"
+              button type="submit" class="btn btn-default" Zoeken
+
