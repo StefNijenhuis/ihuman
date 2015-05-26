@@ -1,5 +1,29 @@
 ready = ->
 
+  window.jsPlumbConfig =
+    endpoint: "Blank"
+    overlays: [ [ "Arrow",
+      width: 12
+      length: 12
+     ] ]
+    paintStyle:
+      strokeStyle: "#000000"
+      fillStyle: "transparent"
+      radius: 7
+      lineWidth: 3
+
+    isSource: true
+    connector: [ "Flowchart",
+      stub: [ 40, 40 ]
+      gap: 0
+      cornerRadius: 5
+      alwaysRespectStubs: true
+     ]
+
+  sleep = (ms) ->
+    start = new Date().getTime()
+    continue while new Date().getTime() - start < ms
+
   class Scenario
     container = $("#scenario-builder")
     id = 0;
@@ -61,7 +85,8 @@ ready = ->
     load: (obj) ->
       @obj = JSON.parse( obj );
 
-    generate: (obj) ->
+    draw: (obj) ->
+
       obj = (if typeof obj isnt "undefined" then obj else @obj)
 
       container.empty();
@@ -75,10 +100,22 @@ ready = ->
     children: (obj) ->
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
-        $("<li id=\"node-#{obj.children[child].id}\"><fc-decision data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
+        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-decision data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
+
+        scenario.connect(obj.id, obj.children[child].id)
 
         if obj.children[child].children
           this.children(obj.children[child])
+
+    connect: (source, target) ->
+      sourceEl = $("#node-#{source}").children('fc-decision')
+      targetEl = $("#node-#{target}").children('fc-decision')
+
+      jsPlumb.connect
+        source: sourceEl
+        target: targetEl
+        anchor: [ "Top", "Bottom" ],
+        jsPlumbConfig
 
   $(document.body).on "click", "fc-decision", ->
     alert $(this).attr("data-id")
@@ -90,12 +127,22 @@ ready = ->
   scenario.node("question", 0, "question 3")
   scenario.node("question", 3, "question 2")
   scenario.node("question", 4, "question 2")
-  scenario.generate()
+  scenario.draw()
+  jsPlumb.repaintEverything()
+
+  #e1 = jsPlumb.addEndpoint("node-0",isSource: true)
+  #e2 = jsPlumb.addEndpoint("node-1",isTarget: true)
+  #console.log(e1)
+
+  #scenario.connect("node-0","node-1")
+
+    # if obj.children[child].children
+    #   this.children(obj.children[child])
 
   #scenario.node("question", null, "test");
 
-jsPlumb.ready ->
-  window.jsPlumb = jsPlumb.getInstance();
+jsPlumb.ready(ready)
+# $(document).on('page:load', ready)
 
-$(document).ready(ready)
-$(document).on('page:load', ready)
+# jsPlumb.bind "ready", ->
+#   jsPlumb.connect({source:"node-0", target:"node-1"})

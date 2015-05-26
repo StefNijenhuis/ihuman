@@ -11,7 +11,5 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
-//= require dom.jsPlumb-1.7.5-min.js
+//= require dom.jsPlumb-1.7.5.js
 //= require_tree .
