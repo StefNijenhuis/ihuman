@@ -42,6 +42,11 @@ gem 'sprockets', '~> 2.8'
 gem 'pg', group: :production
 
 group :development, :test do
+  if RUBY_PLATFORM=~ /i386-mingw32/
+    gem 'coffee-script-source', '1.8.0'
+    gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+  end
+
   gem 'sqlite3'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
