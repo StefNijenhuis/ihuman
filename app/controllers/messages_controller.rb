@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   end
 
   def inbox
-    if current_user.role = 1
+    if current_user.role = "user"
       @messages = Message.where.not(sender_id: current_user).joins(:scenario_session).where(:scenario_sessions => { student_id: current_user } ).all
     else
       @messages = Message.where.not(sender_id: current_user).joins(:scenario_session).where(:scenario_sessions => { teacher_id: current_user } ).all
