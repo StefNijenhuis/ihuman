@@ -1,0 +1,53 @@
+.form-signin .form-control::-webkit-input-placeholder { color: #98bdc5; }
+.form-signin .form-control:-moz-placeholder { color: #98bdc5; }
+.form-signin .form-control::-moz-placeholder { color: #98bdc5; }
+.form-signin .form-control:-ms-input-placeholder { color: #98bdc5; }
+
+.form-signin {
+  max-width: 330px;
+  margin: 25px auto 0 auto;
+}
+
+.form-signin img {
+  display: block;
+  margin: 0 auto;
+}
+
+.form-signin a {
+  color: #fff;
+  margin-bottom: 35px;
+  display: block;
+}
+
+.form-signin a:hover {
+  color: #cddfe3;
+  text-decoration: none;
+}
+
+.form-signin hr {
+  margin: 50px 0 50px 0;
+}
+
+.form-signin label {
+  color: #fff;
+}
+
+.form-signin input {
+  border: 1px solid #20788e;
+  font-size: 18px;
+  font-weight: lighter;
+  height: 44px;
+  background-color: #20788e;
+  color: #fff;
+  margin: 30px 0 20px 0;
+  -moz-box-shadow: inset 0 0 1px #124855;
+  -webkit-box-shadow: inset 0 0 1px #124855;
+  box-shadow: inset 0 0 1px #124855;
+}
+
+.form-signin button.btn {
+  font-weight: bold;
+  background-color: #fff;
+  color: #333a3c;
+  border: 0;
+}
