@@ -6,8 +6,11 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-  body
-
+    - if current_page?(new_user_session_path)
+      body class="gradient"
+    - else
+      body
+      
     / p.notice = notice
     / p.alert = alert
     menu
