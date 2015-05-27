@@ -2,6 +2,37 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#scenario-builder {
+  height: 100%;
+  overflow: auto;
+
+  font-size: 12px;
+  font-family: sans-serif;
+
+  background-color: transparent;
+  background-image: linear-gradient(0deg, transparent 24%, rgba(0, 0, 0, .1) 25%, rgba(0, 0, 0, .1) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(0, 0, 0, .1) 25%, rgba(0, 0, 0, .1) 26%, transparent 27%, transparent 74%, rgba(0, 0, 0, .1) 75%, rgba(0, 0, 0, .1) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
+}
+
+#scenario-builder ul {
+  align-self: center;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+#scenario-builder li {
+  float: left;
+  text-align: center;
+  list-style-type: none;
+  position: relative;
+
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: top;
+}
 fc-terminator, fc-process, fc-decision {
   margin: 40px;
   box-sizing: border-box;
@@ -9,11 +40,11 @@ fc-terminator, fc-process, fc-decision {
   height: 60px;
   width: 140px;
   padding: 14px;
-  z-index: 20;
   color: #fff;
   font-weight: bold;
   text-transform: uppercase;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.8);
+  position: relative;
 }
 
 fc-terminator {
@@ -27,7 +58,7 @@ fc-process {
 }
 
 fc-decision {
-  background: #f1c40f;
+  background: rgba(241,196,15,0.9);
   border-radius: 3px;
 }
 
@@ -80,3 +111,8 @@ fc-remove:hover {
   color: #e74c3c;
   cursor: pointer; cursor: hand;
 }
+
+fc-terminator, fc-process, fc-decision  { z-index:20; }
+._jsPlumb_connector { z-index:4; }
+._jsPlumb_endpoint { z-index:5; }
+._jsPlumb_overlay { z-index:6; }

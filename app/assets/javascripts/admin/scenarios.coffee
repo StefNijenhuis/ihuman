@@ -1,5 +1,7 @@
 ready = ->
 
+  window.flowchart = null;
+
   window.jsPlumbConfig =
     endpoint: "Blank"
     overlays: [ [ "Arrow",
@@ -18,6 +20,7 @@ ready = ->
       gap: 0
       cornerRadius: 5
       alwaysRespectStubs: true
+      midpoint: 1
      ]
 
   sleep = (ms) ->
@@ -27,6 +30,7 @@ ready = ->
   class Scenario
     container = $("#scenario-builder")
     id = 0;
+    initialized = false;
 
     constructor: (@obj, @briefing) ->
       this.node("briefing", null, @briefing)
@@ -45,22 +49,21 @@ ready = ->
           else
             obj.briefing.content = @content;
         when "question"
-          if !@id = null
-            if @parent is 0
-              parent = @obj.briefing
-            else
-              parent = this.getParent(@parent, @obj.briefing)
-              parent = parent[0]
+          if @parent is 0
+            parent = @obj.briefing
+          else
+            parent = this.getParent(@parent, @obj.briefing)
+            parent = parent[0]
 
-            child = {
-              id: id++;
-              type:"question",
-              parent:@parent,
-              content:@content,
-              children:[]
-            };
+          child = {
+            id: id++;
+            type:"question",
+            parent:@parent,
+            content:@content,
+            children:[]
+          };
 
-            parent.children.push child
+          parent.children.push child
 
     getParent: (val, obj) ->
       obj = (if typeof obj isnt "undefined" then obj else @obj)
@@ -89,13 +92,25 @@ ready = ->
 
       obj = (if typeof obj isnt "undefined" then obj else @obj)
 
-      container.empty();
+      if initialized
+        flowchart.detachEveryConnection();
+        flowchart.reset();
+        container.empty();
+        window.flowchart = null;
+      window.flowchart = jsPlumb.getInstance();
 
       # Briefing
       $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-decision data-id=\"#{obj.briefing.id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.briefing.content}</fc-decision><ul></ul></li></ul>").appendTo(container);
 
+      flowchart.setSuspendDrawing(true);
+
       # Children
       this.children(obj.briefing)
+
+      flowchart.setSuspendDrawing(false);
+      flowchart.repaintEverything()
+
+      initialized = true
 
     children: (obj) ->
       for child of obj.children
@@ -111,14 +126,16 @@ ready = ->
       sourceEl = $("#node-#{source}").children('fc-decision')
       targetEl = $("#node-#{target}").children('fc-decision')
 
-      jsPlumb.connect
+      flowchart.connect
         source: sourceEl
         target: targetEl
         anchor: [ "Top", "Bottom" ],
         jsPlumbConfig
 
-  $(document.body).on "click", "fc-decision", ->
-    alert $(this).attr("data-id")
+  $(document.body).on "click", "fc-add", ->
+    id = parseInt($(this).parent().attr("data-id"))
+    scenario.node("question", id, "dit is een test")
+    scenario.draw()
 
   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
 
@@ -126,9 +143,9 @@ ready = ->
   scenario.node("question", 0, "question 2")
   scenario.node("question", 0, "question 3")
   scenario.node("question", 3, "question 2")
-  scenario.node("question", 4, "question 2")
+  scenario.node("question", 3, "question 2")
   scenario.draw()
-  jsPlumb.repaintEverything()
+  flowchart.repaintEverything()
 
   #e1 = jsPlumb.addEndpoint("node-0",isSource: true)
   #e2 = jsPlumb.addEndpoint("node-1",isTarget: true)
@@ -140,6 +157,9 @@ ready = ->
     #   this.children(obj.children[child])
 
   #scenario.node("question", null, "test");
+
+  $(window).resize ->
+    flowchart.repaintEverything()
 
 jsPlumb.ready(ready)
 # $(document).on('page:load', ready)
