@@ -4,15 +4,10 @@ div class="container-log col-md-4 col-md-offset-4"
 
     = image_tag("ihuman-logo-trans.png")
     hr
-    .field
-      = f.label :email, class: "sr-only"
 
-      = f.email_field :email, autofocus: true, placeholder: "E-mailadres", class: "form-control"
+    = f.email_field :email, autofocus: true, placeholder: "E-mailadres", class: "form-control", type: "email"
 
-    .field
-      = f.label :password, class: "sr-only"
-
-      = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Wachwoord"
+    = f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Wachwoord"
 
     / - if devise_mapping.rememberable?
     /   .field
@@ -22,7 +17,7 @@ div class="container-log col-md-4 col-md-offset-4"
     = link_to "Uw wachtwoord vergeten?", new_password_path(resource_name)
 
     .actions
-      = f.submit "Inloggen", class: "btn btn-lg btn-primary btn-block"
+      = f.button "Inloggen", class: "btn btn-lg btn-primary btn-block", type: "submit"
     hr
 
     h6[style="color:white; margin-left:30%"] Copyright &copy iHuman 2015
