@@ -12,6 +12,9 @@ div class="row clearfix"
         - @messages.each do |message|
           tr
             td: input type="checkbox"
-            td.name = message.first_name
+            - if current_user.role = 0
+              td.name = message.role
+            - else
+              td.name = message.sender.first_name
             td.content = message.content
             td.date = message.send_at
