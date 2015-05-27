@@ -1,0 +1,17 @@
+div class="row clearfix"
+  div class="col-md-12"
+    h3 Vandaag
+    table class="table"
+      thead
+        tr
+          th: input type="checkbox"
+          th Ontvanger
+          th Bericht
+          th Tijdstip
+      tbody
+        - @messages.each do |message|
+          tr
+            td: input type="checkbox"
+            td.role = message.role
+            td.content = message.content
+            td.date = message.send_at

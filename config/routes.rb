@@ -37,7 +37,12 @@ Rails.application.routes.draw do
 
   resources :scenario_sessions
 
-  resources :messages
+  resources :messages do
+    collection do
+      get 'inbox'
+      get 'outbox'
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
