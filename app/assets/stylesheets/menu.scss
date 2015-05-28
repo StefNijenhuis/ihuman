@@ -24,7 +24,7 @@
 
 /* Sidebar */
 #wrapper {
-    padding-left: 25px;
+    padding: 0 25px 0 25px;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -32,7 +32,7 @@
 }
 
 #wrapper.toggled {
-    padding-left: 230px;
+    padding: 0 25px 0 230px;
 }
 
 #sidebar-wrapper {
@@ -117,11 +117,11 @@
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 230px;
+        padding: 0 25px 0 230px;
     }
 
     #wrapper.toggled {
-        padding-left: 25px;
+        padding: 0 25px 0 25px;
     }
 
     #sidebar-wrapper {
