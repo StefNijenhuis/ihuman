@@ -2,6 +2,7 @@
   div id="sidebar-wrapper"
     ul class="sidebar-nav"
       li = link_to "Scenarios", scenarios_path
+      li = link_to "Account", edit_user_registration_path
       li = link_to "Inbox", inbox_messages_path
       li = link_to "Outbox", outbox_messages_path
       li = link_to "Uitloggen", destroy_user_session_path, method: 'DELETE'
