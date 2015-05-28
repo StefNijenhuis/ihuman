@@ -26,5 +26,6 @@ User.create(email: 'meganvos@teacher.nl',password: '12345678', password_confirma
 #Superadmin
 User.create(email: 'superadmin@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'super',suffix: 'admin', surname: 'teacher', activated: true, role: 'superadmin')
 
+
 #Scenario
 Scenario.create(roles: 'rol1, rol2, rol3, rol4')
