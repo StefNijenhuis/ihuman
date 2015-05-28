@@ -1,5 +1,4 @@
 ready = ->
-
   window.flowchart = null;
 
   window.jsPlumbConfig =
@@ -20,7 +19,7 @@ ready = ->
       gap: 0
       cornerRadius: 5
       alwaysRespectStubs: true
-      midpoint: 1
+      midpoint: 0.5
      ]
 
   sleep = (ms) ->
@@ -33,9 +32,9 @@ ready = ->
     initialized = false;
 
     constructor: (@obj, @briefing) ->
-      this.node("briefing", null, @briefing)
+      this.addNode("briefing", null, @briefing)
 
-    node: (@type, @parent, @content) ->
+    addNode: (@type, @parent, @content) ->
      switch @type
         when "briefing"
           if !@obj.briefing # Check if briefing exists
@@ -52,7 +51,7 @@ ready = ->
           if @parent is 0
             parent = @obj.briefing
           else
-            parent = this.getParent(@parent, @obj.briefing)
+            parent = this.getObject(@parent, @obj.briefing)
             parent = parent[0]
 
           child = {
@@ -65,7 +64,14 @@ ready = ->
 
           parent.children.push child
 
-    getParent: (val, obj) ->
+    removeNode: (val, obj) ->
+      item = this.getObject(val, obj)
+      item[0].id = null
+      item[0].content = null
+      item[0].children = null
+      this.draw()
+
+    getObject: (val, obj) ->
       obj = (if typeof obj isnt "undefined" then obj else @obj)
       object = []
 
@@ -75,8 +81,8 @@ ready = ->
           object.push obj.children[child] # if it does, push it into the object array
           break # and stop the for loop
 
-        if obj.children[child].children # if object has children
-          object = this.getParent(val, obj.children[child]) # then loop over these as well
+        if obj.children[child].children && obj.children[child].id != null
+          object = this.getObject(val, obj.children[child]) # then loop over these as well
           if object.length > 0 # and if anything returns
             break # stop the for loop
 
@@ -114,6 +120,9 @@ ready = ->
 
     children: (obj) ->
       for child of obj.children
+        if obj.children[child].id is null
+          continue
+
         el = $("#node-#{obj.id}").children("ul")
         newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-decision data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
 
@@ -134,35 +143,32 @@ ready = ->
 
   $(document.body).on "click", "fc-add", ->
     id = parseInt($(this).parent().attr("data-id"))
-    scenario.node("question", id, "dit is een test")
+    scenario.addNode("question", id, "dit is een test")
     scenario.draw()
 
-  window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+  $(document.body).on "click", "fc-remove", ->
+    id = parseInt($(this).parent().attr("data-id"))
+    scenario.removeNode(id, window.obj.briefing)
 
-  scenario.node("question", 0, "question 1")
-  scenario.node("question", 0, "question 2")
-  scenario.node("question", 0, "question 3")
-  scenario.node("question", 3, "question 2")
-  scenario.node("question", 3, "question 2")
-  scenario.draw()
-  flowchart.repaintEverything()
+  $("#form-scenario-new").click ->
+    briefing = $("#form-scenario-briefing").val()
+    window.scenario = new Scenario(window.obj = {}, briefing)
+    scenario.draw()
+    $("#scenario-briefing").remove()
+    $("#scenario-builder").show()
 
-  #e1 = jsPlumb.addEndpoint("node-0",isSource: true)
-  #e2 = jsPlumb.addEndpoint("node-1",isTarget: true)
-  #console.log(e1)
-
-  #scenario.connect("node-0","node-1")
-
-    # if obj.children[child].children
-    #   this.children(obj.children[child])
-
-  #scenario.node("question", null, "test");
+  # window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+  # scenario.addNode("question", 0, "question 1")
+  # scenario.addNode("question", 0, "question 2")
+  # scenario.addNode("question", 0, "question 3")
+  # scenario.addNode("question", 3, "question 2")
+  # scenario.addNode("question", 3, "question 2")
+  # scenario.draw()
+  # flowchart.repaintEverything()
 
   $(window).resize ->
-    flowchart.repaintEverything()
+    if flowchart
+      flowchart.repaintEverything()
 
 jsPlumb.ready(ready)
-# $(document).on('page:load', ready)
-
-# jsPlumb.bind "ready", ->
-#   jsPlumb.connect({source:"node-0", target:"node-1"})
+$(document).on('page:load', ready)
