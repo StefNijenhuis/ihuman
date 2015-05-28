@@ -15,6 +15,6 @@ div class="row clearfix"
             - if current_user.role = "user"
               td.name = message.role
             - else
-              td.name = message.sender.first_name
+              td.name = message.sender.fullname
             td.content = message.content
             td.date = message.send_at
