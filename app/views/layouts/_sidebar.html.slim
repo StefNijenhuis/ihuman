@@ -1,10 +1,9 @@
   / Sidebar
   div id="sidebar-wrapper"
     ul class="sidebar-nav"
-      li = link_to "Scenarios"
-      li = link_to "Inbox"
-      li = link_to "Outbox"
-      li = link_to "Zoeken"
+      li = link_to "Scenarios", scenarios_path
+      li = link_to "Inbox", inbox_messages_path
+      li = link_to "Outbox", outbox_messages_path
       li = link_to "Uitloggen", destroy_user_session_path, method: 'DELETE'
   / Header/top menu
   div class="row clearfix"
