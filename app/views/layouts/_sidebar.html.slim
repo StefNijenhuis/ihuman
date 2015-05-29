@@ -1,7 +1,9 @@
   / Sidebar
   div id="sidebar-wrapper"
     ul class="sidebar-nav"
-      li = link_to "Scenarios", scenarios_path
+      - if current_user.role == "superadmin" || current_user.role == "admin"
+        li = link_to "Scenario's", admin_scenarios_path
+        li = link_to "Users", admin_users_path
       li = link_to "Account", edit_user_registration_path
       li = link_to "Inbox", inbox_messages_path
       li = link_to "Outbox", outbox_messages_path
