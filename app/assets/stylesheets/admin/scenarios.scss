@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+main {
+  height: calc(100% - 30px);
+  width: auto;
+  justify-content: center;
+  display: flex;
+}
+
 #scenario-builder {
   display:none;
   height: 100%;
