@@ -170,27 +170,18 @@ ready = ->
     $("#scenario-briefing").remove()
     $("#scenario-builder").show()
 
-  # window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-  # scenario.addNode("question", 0, "question 1")
-  # scenario.addNode("question", 0, "question 2")
+  window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+  scenario.addNode("question", 0, "question 1")
+  scenario.addNode("question", 0, "question 2")
   # scenario.addNode("question", 0, "question 3")
   # scenario.addNode("question", 3, "question 2")
   # scenario.addNode("question", 3, "question 2")
-  # scenario.draw()
-  # flowchart.repaintEverything()
+  scenario.draw()
+  $("#scenario-briefing").remove()
+  $("#scenario-builder").show()
+  flowchart.repaintEverything()
 
-  $(window).resize ->
-    if flowchart
-      flowchart.repaintEverything()
-
-  $("#scenario-builder").hover (->
-    $(this).animate
-      zoom: 1.2
-    , 400
-  ), ->
-    $(this).animate
-      zoom: 1
-    , 400
+  $("#scenario-builder").panzoom();
 
 jsPlumb.ready(ready)
 $(document).on('page:load', ready)
