@@ -183,5 +183,14 @@ ready = ->
     if flowchart
       flowchart.repaintEverything()
 
+  $("#scenario-builder").hover (->
+    $(this).animate
+      zoom: 1.2
+    , 400
+  ), ->
+    $(this).animate
+      zoom: 1
+    , 400
+
 jsPlumb.ready(ready)
 $(document).on('page:load', ready)
