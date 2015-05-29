@@ -65,26 +65,39 @@ ready = ->
           parent.children.push child
 
     removeNode: (val, obj) ->
-      item = this.getObject(val, obj)
-      item[0].id = null
-      item[0].content = null
-      item[0].children = null
+      item = this.getObject(val, obj, true)
+
+      # item[0].id = null
+      # item[0].content = null
+      # item[0].children = null
       this.draw()
 
-    getObject: (val, obj) ->
+    getObject: (val, obj, remove) ->
+      remove = (if typeof remove isnt "undefined" then remove else false)
       obj = (if typeof obj isnt "undefined" then obj else @obj)
       object = []
 
-      for child of obj.children # for each item in children
+      #for child of obj.children # for each item in children
+      i = 0
+      while i < obj.children.length
+        if typeof obj.children[i] is "undefined"
+          i++
+          continue
+        if obj.children[i].id is val # check if item.id matches val
+          if remove
+            delete obj.children[i]
+            object.push true
+            break
 
-        if obj.children[child].id is val # check if item.id matches val
-          object.push obj.children[child] # if it does, push it into the object array
+          object.push obj.children[i] # if it does, push it into the object array
           break # and stop the for loop
 
-        if obj.children[child].children && obj.children[child].id != null
-          object = this.getObject(val, obj.children[child]) # then loop over these as well
+        if obj.children[i].children
+          object = this.getObject(val, obj.children[i], remove) # then loop over these as well
           if object.length > 0 # and if anything returns
             break # stop the for loop
+
+        i++
 
       object # and finally return the object
 
