@@ -1,6 +1,13 @@
 ready = ->
-  window.flowchart = null;
+  if $("#scenario-builder").length
+    jsPlumb.ready(scenariobuilder)
 
+scenariobuilder = ->
+
+  ### Configuration ###
+  container = $("#scenario-builder")
+  window.flowchart = null;
+  initialized = false;
   window.jsPlumbConfig =
     endpoint: "Blank"
     overlays: [ [ "Arrow",
@@ -22,14 +29,8 @@ ready = ->
       midpoint: 0.5
      ]
 
-  sleep = (ms) ->
-    start = new Date().getTime()
-    continue while new Date().getTime() - start < ms
-
   class Scenario
-    container = $("#scenario-builder")
     id = 0;
-    initialized = false;
 
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
@@ -66,10 +67,6 @@ ready = ->
 
     removeNode: (val, obj) ->
       item = this.getObject(val, obj, true)
-
-      # item[0].id = null
-      # item[0].content = null
-      # item[0].children = null
       this.draw()
 
     getObject: (val, obj, remove) ->
@@ -102,10 +99,17 @@ ready = ->
       object # and finally return the object
 
     save: ->
-      JSON.stringify(@obj);
+      scenario =
+        name: "lorum ipsum"
+        id: id
+
+      scenario['scenario'] = @obj
+      JSON.stringify(scenario)
 
     load: (obj) ->
-      @obj = JSON.parse( obj );
+      json = JSON.parse( obj )
+      @obj = json['scenario']
+      this.draw()
 
     draw: (obj) ->
 
@@ -133,9 +137,6 @@ ready = ->
 
     children: (obj) ->
       for child of obj.children
-        if obj.children[child].id is null
-          continue
-
         el = $("#node-#{obj.id}").children("ul")
         newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-decision data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
 
@@ -170,18 +171,24 @@ ready = ->
     $("#scenario-briefing").remove()
     $("#scenario-builder").show()
 
-  window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-  scenario.addNode("question", 0, "question 1")
-  scenario.addNode("question", 0, "question 2")
-  # scenario.addNode("question", 0, "question 3")
-  # scenario.addNode("question", 3, "question 2")
-  # scenario.addNode("question", 3, "question 2")
-  scenario.draw()
-  $("#scenario-briefing").remove()
-  $("#scenario-builder").show()
-  flowchart.repaintEverything()
+  if $("#scenario-builder").length
+    window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+    scenario.addNode("question", 0, "question 1")
+    scenario.addNode("question", 0, "question 2")
+    # scenario.addNode("question", 0, "question 3")
+    # scenario.addNode("question", 3, "question 2")
+    # scenario.addNode("question", 3, "question 2")
+    scenario.draw()
+    $("#scenario-briefing").remove()
+    $("#scenario-builder").show()
+    flowchart.repaintEverything()
 
-  $("#scenario-builder").panzoom();
+    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
-jsPlumb.ready(ready)
+    $("#scenario-builder").panzoom();
+
+  $(window).on "resize", ->
+    flowchart.repaintEverything()
+
+$(document).ready(ready)
 $(document).on('page:load', ready)
