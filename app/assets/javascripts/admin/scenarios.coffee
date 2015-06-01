@@ -30,7 +30,7 @@ scenariobuilder = ->
      ]
 
   class Scenario
-    id = 0;
+    idCount = 0;
 
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
@@ -40,7 +40,7 @@ scenariobuilder = ->
         when "briefing"
           if !@obj.briefing # Check if briefing exists
             @obj['briefing'] = {
-              id: id++;
+              id: idCount++;
               type:"briefing",
               parent:null,
               content:@content,
@@ -56,7 +56,7 @@ scenariobuilder = ->
             parent = parent[0]
 
           child = {
-            id: id++;
+            id: idCount++;
             type:"question",
             parent:@parent,
             content:@content,
@@ -101,7 +101,7 @@ scenariobuilder = ->
     save: ->
       scenario =
         name: "lorum ipsum"
-        id: id
+        idCount: idCount
 
       scenario['scenario'] = @obj
       JSON.stringify(scenario)
@@ -178,9 +178,9 @@ scenariobuilder = ->
     # scenario.addNode("question", 0, "question 3")
     # scenario.addNode("question", 3, "question 2")
     # scenario.addNode("question", 3, "question 2")
-    scenario.draw()
     $("#scenario-briefing").remove()
     $("#scenario-builder").show()
+    scenario.draw()
     flowchart.repaintEverything()
 
     $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
