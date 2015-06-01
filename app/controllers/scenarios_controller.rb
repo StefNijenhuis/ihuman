@@ -16,7 +16,7 @@ class ScenariosController < ApplicationController
 
   private
     def scenario_params
-      params.require(:scenario).permit(:roles)
+      params.require(:scenario).permit(:roles, :time_budget, :money_budget, :title, :description, :content)
     end
 
 end
