@@ -1,0 +1,144 @@
+.navbar-default {
+    height: 68px;
+    background-color: #20788e;
+    border: 0;
+}
+
+.menu-button .glyphicon {
+    margin: 18px;
+    color: #fff;
+    font-size: 28px;
+}
+
+.navbar-header h2 {
+    font-size: 18px;
+    padding: 0 50px 0 25px;
+    margin: 0;
+    display: inline;
+    color: #fff;
+}
+
+.top-search {
+    padding-left: 50px;
+}
+
+/* Sidebar */
+#wrapper {
+    padding: 0 25px 0 25px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding: 0 25px 0 230px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 205px;
+    width: 0;
+    height: 100%;
+    margin-left: -205px;
+    overflow-y: auto;
+    background: #89becb;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 205px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -205px;
+}
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 205px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+    line-height: 52px;
+    text-indent: 20px;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+    text-decoration: none;
+    color: #fff;
+    background-color: #20788e;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #fff;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background-color: #20788e;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding: 0 25px 0 230px;
+    }
+
+    #wrapper.toggled {
+        padding: 0 25px 0 25px;
+    }
+
+    #sidebar-wrapper {
+        width: 205px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
