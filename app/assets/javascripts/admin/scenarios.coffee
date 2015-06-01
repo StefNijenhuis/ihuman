@@ -100,8 +100,19 @@ scenariobuilder = ->
 
     save: ->
       scenario =
-        name: "lorum ipsum"
+        name: $("#form-scenario-title").val()
         idCount: idCount
+        briefing: $("#form-scenario-briefing").val()
+        timeBudget: $("#form-scenario-time-budget").val()
+        moneyBudget: $("#form-scenario-money-budget").val()
+        roles: []
+
+      $(".role").each ->
+        role =
+          name: $(this).children(".form-scenario-role-name").val()
+          role: $(this).children(".form-scenario-role").val()
+          description: $(this).children(".form-scenario-role-description").val()
+        scenario.roles.push role
 
       scenario['scenario'] = @obj
       JSON.stringify(scenario)
@@ -178,17 +189,30 @@ scenariobuilder = ->
     # scenario.addNode("question", 0, "question 3")
     # scenario.addNode("question", 3, "question 2")
     # scenario.addNode("question", 3, "question 2")
-    $("#scenario-briefing").remove()
-    $("#scenario-builder").show()
-    scenario.draw()
-    flowchart.repaintEverything()
 
-    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+    # scenario.draw()
+    # $("#scenario-briefing").remove()
+    # $("#scenario-builder").show()
+    # flowchart.repaintEverything()
 
-    $("#scenario-builder").panzoom();
+    # $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+
+    # $("#scenario-builder").panzoom();
 
   $(window).on "resize", ->
     flowchart.repaintEverything()
+
+  # This is code to add more roles in the scenario setup
+  $(".add-role-button").click ->
+    addRole()
+
+  addRole = ->
+    host = document.querySelector('.roles')
+    template = document.querySelector('#role-template')
+    clone = document.importNode(template.content, true)
+    host.appendChild(clone)
+
+  addRole()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

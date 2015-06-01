@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518112309) do
+ActiveRecord::Schema.define(version: 20150601101939) do
 
   create_table "messages", force: :cascade do |t|
     t.string   "content"
@@ -28,10 +28,16 @@ ActiveRecord::Schema.define(version: 20150518112309) do
     t.integer  "teacher_id"
     t.datetime "start_date"
     t.datetime "end_date"
+    t.integer  "progress"
   end
 
   create_table "scenarios", force: :cascade do |t|
-    t.string "roles"
+    t.text    "roles"
+    t.integer "time_budget"
+    t.integer "money_budget"
+    t.string  "title"
+    t.text    "description"
+    t.text    "content"
   end
 
   create_table "users", force: :cascade do |t|
