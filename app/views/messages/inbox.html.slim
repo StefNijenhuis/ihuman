@@ -1,0 +1,20 @@
+div class="row clearfix"
+  div class="col-md-12"
+    h3 Vandaag
+    table class="table"
+      thead
+        tr
+          th: input type="checkbox"
+          th Afzender
+          th Bericht
+          th Tijdstip
+      tbody
+        - @messages.each do |message|
+          tr
+            td: input type="checkbox"
+            - if current_user.role = "user"
+              td.name = message.role
+            - else
+              td.name = message.sender.fullname
+            td.content = message.content
+            td.date = message.send_at
