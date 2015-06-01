@@ -1,13 +1,51 @@
 #scenario-briefing
-  p
-    span Scenario Naam
-    input type="text" id="form-scenario-title"
 
-  p
-    span Briefing
-    textarea id="form-scenario-briefing"
+  label Scenario Naam
+  br
+  input type="text" id="form-scenario-title"
+  br
 
-  p
-    input type="submit" id="form-scenario-new"
+  label Briefing
+  br
+  textarea id="form-scenario-briefing"
+  br
+
+
+  h3 Factoren
+
+  checkbox id="form-scenario-time-budget"
+  label Tijdsbudget
+  input type="text" placeholder="Uur .."
+  br
+
+  checkbox id="form-scenario-money-budget"
+  label Geldbudget
+  input type="text" placeholder="&euro; .."
+  br
+
+  h3 Roles
+
+  .roles
+
+  button class="add-role-button" Hai
+
+  template id="role-template"
+    .role
+      label Naam:
+      br
+      input type="text" class="form-scenario-role-name"
+      br
+      label Rol:
+      br
+      input type="text" class="form-scenario-role"
+      br
+
+      label Beschrijving:
+      br
+      textarea class="form-scenario-role-description"
+      hr
+
+  br
+  input type="submit" id="form-scenario-new"
 
 #scenario-builder
