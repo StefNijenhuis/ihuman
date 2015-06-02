@@ -181,11 +181,12 @@ scenariobuilder = ->
     scenario.draw()
     $("#scenario-briefing").remove()
     $("#scenario-builder").show()
+    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
-  if $("#scenario-builder").length
-    window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-    scenario.addNode("question", 0, "question 1")
-    scenario.addNode("question", 0, "question 2")
+  # if $("#scenario-builder").length
+    # window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+    # scenario.addNode("question", 0, "question 1")
+    # scenario.addNode("question", 0, "question 2")
     # scenario.addNode("question", 0, "question 3")
     # scenario.addNode("question", 3, "question 2")
     # scenario.addNode("question", 3, "question 2")
@@ -206,11 +207,14 @@ scenariobuilder = ->
   $(".add-role-button").click ->
     addRole()
 
+  roleCount = 0;
   addRole = ->
-    host = document.querySelector('.roles')
+    host = document.querySelector('.insert-roles')
     template = document.querySelector('#role-template')
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
+    roleCount++
+    $(".roles").children(".role").last().attr("data-roleID",roleCount);
 
   addRole()
 

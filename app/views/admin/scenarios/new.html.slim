@@ -23,29 +23,29 @@
   input type="text" placeholder="&euro; .."
   br
 
-  h3 Roles
-
-  .roles
-
-  button class="add-role-button" Hai
+  form
+    fieldset class="roles"
+      legend class="roles" Rolen
+      .insert-roles
+      button class="btn btn-default add-role-button" Extra rol toevoegen
 
   template id="role-template"
     .role
-      label Naam:
-      br
-      input type="text" class="form-scenario-role-name"
-      br
-      label Rol:
-      br
-      input type="text" class="form-scenario-role"
-      br
+      h4 Rol 1
+      .form-group
+          label for="form-scenario-role-name" Naam
+          input type="text" class="form-control" id="form-scenario-role-name" placeholder="Naam"
 
-      label Beschrijving:
-      br
-      textarea class="form-scenario-role-description"
-      hr
+      .form-group
+                label for="form-scenario-role-role" Rol
+                input type="text" class="form-control" id="form-scenario-role-role" placeholder="Rol"
 
-  br
-  input type="submit" id="form-scenario-new"
+      .form-group
+                label for="form-scenario-role-description" Beschrijving
+                textarea class="form-control" id="form-scenario-role-description" placeholder="Beschrijving"
+
+  button style="float:right;" type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
+
+
 
 #scenario-builder
