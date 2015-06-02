@@ -20,7 +20,7 @@ h2 Scenario sessie aanmaken
   .field
     = f.label :start_date
     br
-    = date_select :start_date, :startdate, :class => "datepicker"
+    = f.text_field :start_date, class: "datepicker"
 
   .actions
     = f.submit "opslaan"

@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Bootstrap because reasons.
 gem 'bootstrap-sass', '~> 3.3.4.1'
+# Bootstrap datepicker
+gem 'bootstrap-datepicker-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
