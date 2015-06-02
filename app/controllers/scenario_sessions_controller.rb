@@ -10,6 +10,7 @@ class ScenarioSessionsController < ApplicationController
 
   def create
     @scenario_session = ScenarioSession.new(scenario_session_params)
+    @scenario_session.teacher_id = current_user
     if @scenario_session.save
       redirect_to @scenario_session
     end
