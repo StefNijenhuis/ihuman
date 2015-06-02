@@ -134,7 +134,7 @@ scenariobuilder = ->
       window.flowchart = jsPlumb.getInstance();
 
       # Briefing
-      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-decision data-id=\"#{obj.briefing.id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.briefing.content}</fc-decision><ul></ul></li></ul>").appendTo(container);
+      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-decision class=\"node\" data-id=\"#{obj.briefing.id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.briefing.content}</fc-decision><ul></ul></li></ul>").appendTo(container);
 
       flowchart.setSuspendDrawing(true);
 
@@ -149,7 +149,7 @@ scenariobuilder = ->
     children: (obj) ->
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
-        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-decision data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
+        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-decision class=\"node\" data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
 
         scenario.connect(obj.id, obj.children[child].id)
 
@@ -175,6 +175,18 @@ scenariobuilder = ->
     id = parseInt($(this).parent().attr("data-id"))
     scenario.removeNode(id, window.obj.briefing)
 
+  $(document.body).on "click", ".node", (e) ->
+    return unless e.target is this #Negeer clicks op children
+
+    id = parseInt($(this).attr("data-id"))
+    if id == 0
+      node = obj.briefing
+    else
+      node = scenario.getObject(id, obj.briefing)[0]
+    node.content = "muh dick"
+    scenario.draw()
+
+
   $("#form-scenario-new").click ->
     briefing = $("#form-scenario-briefing").val()
     window.scenario = new Scenario(window.obj = {}, briefing)
@@ -184,19 +196,19 @@ scenariobuilder = ->
     $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
   # if $("#scenario-builder").length
-    # window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-    # scenario.addNode("question", 0, "question 1")
-    # scenario.addNode("question", 0, "question 2")
-    # scenario.addNode("question", 0, "question 3")
-    # scenario.addNode("question", 3, "question 2")
-    # scenario.addNode("question", 3, "question 2")
+  #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+  #   scenario.addNode("question", 0, "question 1")
+  #   scenario.addNode("question", 0, "question 2")
+  #   scenario.addNode("question", 0, "question 3")
+  #   # scenario.addNode("question", 3, "question 2")
+  #   # scenario.addNode("question", 3, "question 2")
 
-    # scenario.draw()
-    # $("#scenario-briefing").remove()
-    # $("#scenario-builder").show()
-    # flowchart.repaintEverything()
+  #   scenario.draw()
+  #   $("#scenario-briefing").remove()
+  #   $("#scenario-builder").show()
+  #   flowchart.repaintEverything()
 
-    # $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+  #   $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
     # $("#scenario-builder").panzoom();
 
