@@ -83,6 +83,7 @@ scenariobuilder = ->
         if obj.children[i].id is val # check if item.id matches val
           if remove
             delete obj.children[i]
+            obj.children.length--
             object.push true
             break
 
