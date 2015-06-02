@@ -128,6 +128,8 @@ scenariobuilder = ->
       obj = (if typeof obj isnt "undefined" then obj else @obj)
 
       if initialized
+        minHeight = container.height()
+        container.css('min-height', minHeight);
         flowchart.detachEveryConnection();
         flowchart.reset();
         container.empty();
@@ -146,6 +148,11 @@ scenariobuilder = ->
       flowchart.repaintEverything()
 
       initialized = true
+
+      if initialized
+        ulHeight = container.children("ul").children("li").height()
+        if ulHeight < minHeight
+          container.animate({ 'min-height': ulHeight }, "slow", "easeInOutCubic");
 
     children: (obj) ->
       for child of obj.children
@@ -194,7 +201,7 @@ scenariobuilder = ->
     scenario.draw()
     $("#scenario-briefing").remove()
     $("#scenario-builder").show()
-    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+    $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
   # if $("#scenario-builder").length
   #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
