@@ -62,3 +62,17 @@ input[type="color"]:focus,
 .btn{
   background-color: #20788e;
 }
+
+.row-head{
+  background-color: #20788e;
+  color: white;
+  line-height: none;
+}
+
+.row-body{
+  background-color: #d0e5ea;
+}
+
+.row-body tr{
+  line-height: none;
+}
