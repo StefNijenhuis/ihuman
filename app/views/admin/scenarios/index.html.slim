@@ -1,16 +1,11 @@
-p = link_to "New scenario", new_admin_scenario_path
-div class="row clearfix"
-  div class="col-md-12"
-    h3 Scenarios
-    table class="table"
-      thead
-        tr
-          th: input type="checkbox"
-          th Naam
-          th Beschrijving
-      tbody
-        - @scenarios.each do |scenario|
-          tr
-            td: input type="checkbox"
-            td.title = scenario.title
-            td.description = scenario.description
+<div class="col-lg-2">
+  <div class="btn-group" role="group" aria-label="...">
+    <button type="button" class="btn btn-primary">Nieuw scenario</button>
+  </div>
+</div>
+<div class="col-lg-6">
+  <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for...">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+  </div>
+</div>
