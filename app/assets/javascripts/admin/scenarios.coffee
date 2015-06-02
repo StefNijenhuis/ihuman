@@ -13,9 +13,10 @@ scenariobuilder = ->
     overlays: [ [ "Arrow",
       width: 12
       length: 12
+      foldback: 0.5
      ] ]
     paintStyle:
-      strokeStyle: "#000000"
+      strokeStyle: "#333a3c"
       fillStyle: "transparent"
       radius: 7
       lineWidth: 3
@@ -137,7 +138,7 @@ scenariobuilder = ->
       window.flowchart = jsPlumb.getInstance();
 
       # Briefing
-      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-decision class=\"node\" data-id=\"#{obj.briefing.id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.briefing.content}</fc-decision><ul></ul></li></ul>").appendTo(container);
+      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-node class=\"briefing\" data-id=\"#{obj.briefing.id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.briefing.content}</fc-node><ul></ul></li></ul>").appendTo(container);
 
       flowchart.setSuspendDrawing(true);
 
@@ -157,7 +158,7 @@ scenariobuilder = ->
     children: (obj) ->
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
-        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-decision class=\"node\" data-id=\"#{obj.children[child].id}\"><fc-add></fc-add><fc-remove></fc-remove>#{obj.children[child].content}</fc-decision><ul></ul></li>").appendTo(el);
+        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"#{obj.children[child].type}\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-link><i class=\"fa fa-link fa-2x\"></i></fc-link><fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.children[child].content}</fc-node><ul></ul></li>").appendTo(el);
 
         scenario.connect(obj.id, obj.children[child].id)
 
@@ -165,8 +166,8 @@ scenariobuilder = ->
           this.children(obj.children[child])
 
     connect: (source, target) ->
-      sourceEl = $("#node-#{source}").children('fc-decision')
-      targetEl = $("#node-#{target}").children('fc-decision')
+      sourceEl = $("#node-#{source}").children('fc-node')
+      targetEl = $("#node-#{target}").children('fc-node')
 
       flowchart.connect
         source: sourceEl
@@ -183,7 +184,7 @@ scenariobuilder = ->
     id = parseInt($(this).parent().attr("data-id"))
     scenario.removeNode(id, window.obj.briefing)
 
-  $(document.body).on "click", ".node", (e) ->
+  $(document.body).on "click", "fc-node", (e) ->
     return unless e.target is this #Negeer clicks op children
 
     id = parseInt($(this).attr("data-id"))
@@ -203,20 +204,20 @@ scenariobuilder = ->
     $("#scenario-builder").show()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
-  # if $("#scenario-builder").length
-  #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-  #   scenario.addNode("question", 0, "question 1")
-  #   scenario.addNode("question", 0, "question 2")
-  #   scenario.addNode("question", 0, "question 3")
-  #   # scenario.addNode("question", 3, "question 2")
-  #   # scenario.addNode("question", 3, "question 2")
+  if $("#scenario-builder").length
+    window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+    scenario.addNode("question", 0, "question 1")
+    scenario.addNode("question", 0, "question 2")
+    scenario.addNode("question", 0, "question 3")
+    # scenario.addNode("question", 3, "question 2")
+    # scenario.addNode("question", 3, "question 2")
 
-  #   scenario.draw()
-  #   $("#scenario-briefing").remove()
-  #   $("#scenario-builder").show()
-  #   flowchart.repaintEverything()
+    scenario.draw()
+    $("#scenario-briefing").remove()
+    $("#scenario-builder").show()
+    flowchart.repaintEverything()
 
-  #   $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
     # $("#scenario-builder").panzoom();
 

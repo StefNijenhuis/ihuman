@@ -110,6 +110,8 @@ GEM
       activesupport (>= 3.0.0)
     ffi (1.9.8)
     ffi (1.9.8-x86-mingw32)
+    font-awesome-sass (4.3.2.1)
+      sass (~> 3.2)
     formatador (0.2.5)
     gherkin (2.12.2)
       multi_json (~> 1.3)
@@ -336,6 +338,7 @@ DEPENDENCIES
   database_cleaner (~> 1.4)
   devise
   factory_girl (~> 4.5)
+  font-awesome-sass (~> 4.3.0)
   guard (~> 2.12)
   guard-bundler (~> 2.1)
   guard-coffeescript (~> 2.0)
