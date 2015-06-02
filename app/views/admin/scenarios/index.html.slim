@@ -1,3 +1,16 @@
-h1 Admin::Scenarios#index
-
 p = link_to "New scenario", new_admin_scenario_path
+div class="row clearfix"
+  div class="col-md-12"
+    h3 Scenarios
+    table class="table"
+      thead
+        tr
+          th: input type="checkbox"
+          th Naam
+          th Beschrijving
+      tbody
+        - @scenarios.each do |scenario|
+          tr
+            td: input type="checkbox"
+            td.title = scenario.title
+            td.description = scenario.description

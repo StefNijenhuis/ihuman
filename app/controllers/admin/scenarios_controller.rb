@@ -1,7 +1,8 @@
 class Admin::ScenariosController < ApplicationController
   #after_action :verify_authorized
 
-  def index
+    def index
+    @scenarios = Scenario.all
   end
 
   def new
