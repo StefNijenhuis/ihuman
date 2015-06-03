@@ -1,53 +1,50 @@
 #scenario-briefing
+  div class="col-md-4"
+    h2 Nieuw scenario
 
-  form
-    .form-group
-      label for="form-scenario-title"
-      br
-      input type="text" id="form-scenario-title"
-      br
-
-      label Briefing
-      br
-      textarea id="form-scenario-briefing"
-      br
-
-
-  h3 Factoren
-
-  checkbox id="form-scenario-time-budget"
-  label Tijdsbudget
-  input type="text" placeholder="Uur .."
-  br
-
-  checkbox id="form-scenario-money-budget"
-  label Geldbudget
-  input type="text" placeholder="&euro; .."
-  br
-
-  form
-    fieldset class="roles"
-      legend class="roles" Rolen
-      .insert-roles
-      button type="button" class="btn btn-default add-role-button" Extra rol toevoegen
-
-  template id="role-template"
-    .role
-      h4 Rol 1
+    form
       .form-group
-          label for="form-scenario-role-name" Naam
-          input type="text" class="form-control" id="form-scenario-role-name" placeholder="Naam"
+        label for="form-scenario-title" Scenario naam
+        input type="text" class="form-control" id="form-scenario-title"
 
       .form-group
-                label for="form-scenario-role-role" Rol
-                input type="text" class="form-control" id="form-scenario-role-role" placeholder="Rol"
+        label for="form-scenario-briefing" Scenario briefing
+        textarea class="form-control" id="form-scenario-briefing"
+
+    h3 Factoren
+
+    p Deze factoren zijn optioneel.
+
+    form
+      .form-group
+        label for="form-scenario-time-budget" Tijdsbudget
+        input type="text" class="form-control" id="form-scenario-time-budget" placeholder="Uur .."
 
       .form-group
-                label for="form-scenario-role-description" Beschrijving
-                textarea class="form-control" id="form-scenario-role-description" placeholder="Beschrijving"
+        label for="form-scenario-money-budget" Geldbudget
+        input type="text" class="form-control" id="form-scenario-money-budget" placeholder="&euro; .."
 
-  button style="float:right;" type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
+    form
+      fieldset class="roles"
+        legend class="roles" Rolen
+        .insert-roles
+        button type="button" class="btn btn-default add-role-button" Extra rol toevoegen
 
+    template id="role-template"
+      .role
+        h4 Wat
+        .form-group
+            label for="form-scenario-role-name" Naam
+            input type="text" class="form-control" id="form-scenario-role-name" placeholder="Naam"
 
+        .form-group
+                  label for="form-scenario-role-role" Rol
+                  input type="text" class="form-control" id="form-scenario-role-role" placeholder="Rol"
+
+        .form-group
+                  label for="form-scenario-role-description" Beschrijving
+                  textarea class="form-control" id="form-scenario-role-description" placeholder="Beschrijving"
+
+    button style="float:right;" type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
 
 #scenario-builder
