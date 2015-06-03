@@ -33,7 +33,9 @@ class Admin::UsersController < ApplicationController
     end
 
     def check_admin
-      # if current_user.role
+      if current_user.role == "superadmin" || current_user.role == "admin"
+        # Do something
+      end
     end
 
 end
