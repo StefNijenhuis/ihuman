@@ -4,8 +4,9 @@ ready = ->
 
 scenariobuilder = ->
 
-  linkParentId = null;
+  linkParentId = null
   linkQueue = []
+  activeid = null
 
   ### Configuration ###
   wrapper = $("#scenario-builder-wrapper")
@@ -53,7 +54,7 @@ scenariobuilder = ->
             };
           else
             obj.briefing.content = @content;
-        when "question"
+        when "choice"
           if @parent is 0
             parent = @obj.briefing
           else
@@ -62,7 +63,7 @@ scenariobuilder = ->
 
           child = {
             id: idCount++;
-            type:"question",
+            type:"choice",
             parent:@parent,
             content:@content,
             children:[],
@@ -116,9 +117,9 @@ scenariobuilder = ->
 
       $(".role").each ->
         role =
-          name: $(this).children(".form-scenario-role-name").val()
-          role: $(this).children(".form-scenario-role").val()
-          description: $(this).children(".form-scenario-role-description").val()
+          name: $(this).find("#form-scenario-role-name").val()
+          role: $(this).find("#form-scenario-role-role").val()
+          description: $(this).find("#form-scenario-role-description").val()
         scenario.roles.push role
 
       scenario['scenario'] = @obj
@@ -143,7 +144,7 @@ scenariobuilder = ->
       window.flowchart = jsPlumb.getInstance();
 
       # Briefing
-      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-node class=\"briefing\" data-id=\"#{obj.briefing.id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.briefing.content}</fc-node><ul></ul></li></ul>").appendTo(container);
+      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-node class=\"briefing\" data-id=\"#{obj.briefing.id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>Briefing</fc-node><ul></ul></li></ul>").appendTo(container);
 
       flowchart.setSuspendDrawing(true);
 
@@ -190,10 +191,69 @@ scenariobuilder = ->
         anchor: anchor,
         jsPlumbConfig
 
-  $(document.body).on "click", "fc-add", ->
+  $(document.body).on "click", "fc-edit", ->
+    $(".builder-sidebar").empty()
     id = parseInt($(this).parent().attr("data-id"))
-    scenario.addNode("question", id, "dit is een test")
+    activeid = id
+    if id == 0
+      node = obj.briefing
+    else
+      node = scenario.getObject(id, obj.briefing)[0]
+    host = document.querySelector('.builder-sidebar')
+    template = document.querySelector('#form-edit-choice')
+    clone = document.importNode(template.content, true)
+    host.appendChild(clone)
+
+    # TODO: MAAK DIT EEN MOOIE FUNCTIE
+    $("#select-roles").empty()
+
+    $(".role").each ->
+      name = $(this).find("#form-scenario-role-name").val()
+      role = $(this).find("#form-scenario-role-role").val()
+
+      $("#select-roles").append('<option>'+ role + ' (' + name + ')</option>')
+
+    $("#standard-response").val(node.content)
+
+    # scenario.addNode("question", id, "dit is een test")
+    # scenario.draw()
+
+  $(document.body).on "click", "fc-add", ->
+    $(".builder-sidebar").empty()
+    id = parseInt($(this).parent().attr("data-id"))
+    activeid = id
+    host = document.querySelector('.builder-sidebar')
+    template = document.querySelector('#form-add-choice')
+    clone = document.importNode(template.content, true)
+    host.appendChild(clone)
+
+    # TODO: MAAK DIT EEN MOOIE FUNCTIE
+    $("#select-roles").empty()
+
+    $(".role").each ->
+      name = $(this).find("#form-scenario-role-name").val()
+      role = $(this).find("#form-scenario-role-role").val()
+
+      $("#select-roles").append('<option>'+ role + ' (' + name + ')</option>')
+
+    # scenario.addNode("question", id, "dit is een test")
+    # scenario.draw()
+
+  $(document.body).on "click", ".add-choice", (e) ->
+    e.preventDefault()
+    scenario.addNode("choice", activeid, $("#standard-response").val())
     scenario.draw()
+    $(".builder-sidebar").empty()
+
+  $(document.body).on "click", ".edit-choice", (e) ->
+    e.preventDefault()
+    if activeid == 0
+      node = obj.briefing
+    else
+      node = scenario.getObject(activeid, obj.briefing)[0]
+    node.content = $("#standard-response").val()
+    scenario.draw()
+    $(".builder-sidebar").empty()
 
   $(document.body).on "click", "fc-remove", ->
     id = parseInt($(this).parent().attr("data-id"))
@@ -213,12 +273,12 @@ scenariobuilder = ->
       scenario.draw()
       return
 
-    if id == 0
-      node = obj.briefing
-    else
-      node = scenario.getObject(id, obj.briefing)[0]
-    node.content = "muh dick"
-    scenario.draw()
+    # if id == 0
+    #   node = obj.briefing
+    # else
+    #   node = scenario.getObject(id, obj.briefing)[0]
+    # node.content = "test"
+    # scenario.draw()
 
   $(document.body).on "click", "fc-link", ->
     linkParentId = parseInt($(this).parent().attr("data-id"))
@@ -234,15 +294,15 @@ scenariobuilder = ->
 
   # if $("#scenario-builder").length
   #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-  #   scenario.addNode("question", 0, "question 1")
-  #   scenario.addNode("question", 0, "question 2")
-  #   scenario.addNode("question", 0, "question 3")
+  #   # scenario.addNode("question", 0, "question 1")
+  #   # scenario.addNode("question", 0, "question 2")
+  #   # scenario.addNode("question", 0, "question 3")
   #   # scenario.addNode("question", 3, "question 2")
   #   # scenario.addNode("question", 3, "question 2")
 
   #   scenario.draw()
-  #   $("#scenario-briefing").remove()
-  #   $("#scenario-builder").show()
+  #   $("#scenario-briefing").hide()
+  #   $("#scenario-builder-wrapper").show()
   #   flowchart.repaintEverything()
 
   #   $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")

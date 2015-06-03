@@ -52,6 +52,8 @@
     div class="col-md-10"
       #scenario-builder
     div class="col-md-2 builder-sidebar"
+
+    template id="form-contact-template"
       h3 Contact bewerken
       form
         p
@@ -70,3 +72,41 @@
           textarea placeholder="Vul hier de standaard respons in"
         span class="optional" &#42;optioneel
         button type="submit" Opslaan
+
+    template id="form-add-choice"
+      h3 Nieuwe keuze
+      form
+        p
+          label Contact met
+          select id="select-roles"
+
+        / p
+        /   label Uren
+        /   input type="text" placeholder="Aantal uur"
+        / p
+        /   label Kosten
+        /   input type="text" placeholder="Kosten in Euro"
+        p
+          label Standaard respons
+          textarea id="standard-response" placeholder="Vul hier de standaard respons in"
+        span class="optional" &#42;optioneel
+        button type="submit" class="add-choice" Toevoegen
+
+    template id="form-edit-choice"
+      h3 Nieuwe keuze
+      form
+        p
+          label Contact met
+          select id="select-roles"
+
+        / p
+        /   label Uren
+        /   input type="text" placeholder="Aantal uur"
+        / p
+        /   label Kosten
+        /   input type="text" placeholder="Kosten in Euro"
+        p
+          label Standaard respons
+          textarea id="standard-response" placeholder="Vul hier de standaard respons in"
+        span class="optional" &#42;optioneel
+        button type="submit" class="edit-choice" Aanpassen
