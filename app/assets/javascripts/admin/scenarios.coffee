@@ -4,7 +4,11 @@ ready = ->
 
 scenariobuilder = ->
 
+  linkParentId = null;
+  linkQueue = []
+
   ### Configuration ###
+  wrapper = $("#scenario-builder-wrapper")
   container = $("#scenario-builder")
   window.flowchart = null;
   initialized = false;
@@ -61,7 +65,8 @@ scenariobuilder = ->
             type:"question",
             parent:@parent,
             content:@content,
-            children:[]
+            children:[],
+            link_to:null
           };
 
           parent.children.push child
@@ -156,23 +161,33 @@ scenariobuilder = ->
           container.animate({ 'min-height': ulHeight }, "slow", "easeInOutCubic");
 
     children: (obj) ->
+      # TODO: Link queue
+
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
-        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"#{obj.children[child].type}\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-link><i class=\"fa fa-link fa-2x\"></i></fc-link><fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.children[child].content}</fc-node><ul></ul></li>").appendTo(el);
+
+        if obj.children[child].link_to == null
+          link = "<fc-link><i class=\"fa fa-link fa-2x\"></i></fc-link>"
+        else
+          link = "<fc-link-remove><i class=\"fa fa-chain-broken fa-2x\"></i></fc-link-remove>"
+
+        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"#{obj.children[child].type}\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit>#{link}<fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.children[child].content}</fc-node><ul></ul></li>").appendTo(el);
 
         scenario.connect(obj.id, obj.children[child].id)
 
         if obj.children[child].children
           this.children(obj.children[child])
 
-    connect: (source, target) ->
+    connect: (source, target, anchor) ->
+      anchor = (if typeof anchor isnt "undefined" then anchor else ["Top","Bottom"])
+
       sourceEl = $("#node-#{source}").children('fc-node')
       targetEl = $("#node-#{target}").children('fc-node')
 
       flowchart.connect
         source: sourceEl
         target: targetEl
-        anchor: [ "Top", "Bottom" ],
+        anchor: anchor,
         jsPlumbConfig
 
   $(document.body).on "click", "fc-add", ->
@@ -188,6 +203,16 @@ scenariobuilder = ->
     return unless e.target is this #Negeer clicks op children
 
     id = parseInt($(this).attr("data-id"))
+
+    if linkParentId != null && id != linkParentId
+      console.log(linkParentId)
+      parent = scenario.getObject(linkParentId, obj.briefing)[0]
+      parent.link_to = id
+      linkParentId = null
+
+      scenario.draw()
+      return
+
     if id == 0
       node = obj.briefing
     else
@@ -195,29 +220,32 @@ scenariobuilder = ->
     node.content = "muh dick"
     scenario.draw()
 
+  $(document.body).on "click", "fc-link", ->
+    linkParentId = parseInt($(this).parent().attr("data-id"))
+    alert "nu mag je op een node klikken"
 
   $("#form-scenario-new").click ->
     briefing = $("#form-scenario-briefing").val()
     window.scenario = new Scenario(window.obj = {}, briefing)
     scenario.draw()
-    $("#scenario-briefing").remove()
-    $("#scenario-builder").show()
+    $("#scenario-briefing").hide()
+    $("#scenario-builder-wrapper").show()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
-  if $("#scenario-builder").length
-    window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-    scenario.addNode("question", 0, "question 1")
-    scenario.addNode("question", 0, "question 2")
-    scenario.addNode("question", 0, "question 3")
-    # scenario.addNode("question", 3, "question 2")
-    # scenario.addNode("question", 3, "question 2")
+  # if $("#scenario-builder").length
+  #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+  #   scenario.addNode("question", 0, "question 1")
+  #   scenario.addNode("question", 0, "question 2")
+  #   scenario.addNode("question", 0, "question 3")
+  #   # scenario.addNode("question", 3, "question 2")
+  #   # scenario.addNode("question", 3, "question 2")
 
-    scenario.draw()
-    $("#scenario-briefing").remove()
-    $("#scenario-builder").show()
-    flowchart.repaintEverything()
+  #   scenario.draw()
+  #   $("#scenario-briefing").remove()
+  #   $("#scenario-builder").show()
+  #   flowchart.repaintEverything()
 
-    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+  #   $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
     # $("#scenario-builder").panzoom();
 
