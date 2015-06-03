@@ -59,10 +59,6 @@ input[type="color"]:focus,
   border: 1px solid #fff;
 }
 
-.btn{
-  // background-color: #20788e;
-}
-
 .row-head{
   background-color: #20788e;
   color: white;
@@ -75,4 +71,19 @@ input[type="color"]:focus,
 
 .row-body tr{
   line-height: none;
+}
+
+button,
+a.btn {
+  background-color: #20788e;
+  border-radius: 4px;
+  background-color: #20788e;
+  border: 0;
+  color: #fff;
+  height: 38px;
+  line-height: 38px;
+  padding: 0 15px 0 15px;
+  &:hover {
+    background-color: #2592ad;
+  }
 }
