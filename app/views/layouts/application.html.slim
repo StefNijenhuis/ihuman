@@ -6,7 +6,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-    - if current_page?(new_user_session_path)
+    - if request.path == "/user/sign_in"
       body class="gradient"
     - else
       body
@@ -15,7 +15,7 @@ html
       / p.notice = notice
       / p.alert = alert
       nav
-        - if !current_page?(new_user_session_path)
+        - if request.path != "/user/sign_in"
           = render "layouts/sidebar.html.slim"
 
         / - if user_signed_in?
