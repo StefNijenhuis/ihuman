@@ -1,28 +1,39 @@
-<div class="col-lg-2">
-  <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-primary">Nieuw scenario</button>
-  </div>
-</div>
-<div class="col-lg-6">
-  <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search for...">
-        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-  </div>
-</div>
+div class="col-md-12 scenario-overview-wrapper"
+  div class="col-md-4"
+    div class="btn-group" role="group"
+      = link_to "Nieuw scenario", new_admin_scenario_path, {class: "btn btn-primary new-scenario-button"}
+  div class="col-md-8"
+    / div class="input-group"
+    input type="text" class="form-control" placeholder="Zoeken op..."
+      / span class="glyphicon glyphicon-search" aria-hidden="true"
 
-<table class="table table-striped">
-  <thead class="row-head">
-    <tr>
-      <th>Projectnaam</th>
-      <th>Beschrijving</th>
-      <th>Sorteer</th>
-    </tr>
-  </thead>
-  <tbody class="row-body">
-    <tr> 
-      <td>Project Zonnebloem</td>
-      <td>Consult, Beste docent ik had een vraag...</td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>     
+table class="table table-striped"
+  thead class="row-head"
+    tr
+      th Projectnaam
+      th Beschrijving
+      th Sorteer
+  tbody class="row-body"
+    - @scenarios.each do |scenario|
+      tr
+        td.title = scenario.title
+        td.description = scenario.description
+        td
+
+
+  / p = link_to "New scenario", new_admin_scenario_path
+  / div class="row clearfix"
+  /   div class="col-md-12"
+
+  /     table class="table"
+  /       thead
+  /         tr
+  /           th: input type="checkbox"
+  /           th Naam
+  /           th Beschrijving
+  /       tbody
+  /         - @scenarios.each do |scenario|
+  /           tr
+  /             td: input type="checkbox"
+  /             td.title = scenario.title
+  /             td.description = scenario.description
