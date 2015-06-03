@@ -8,6 +8,7 @@ scenariobuilder = ->
   linkQueue = []
 
   ### Configuration ###
+  wrapper = $("#scenario-builder-wrapper")
   container = $("#scenario-builder")
   window.flowchart = null;
   initialized = false;
@@ -227,8 +228,8 @@ scenariobuilder = ->
     briefing = $("#form-scenario-briefing").val()
     window.scenario = new Scenario(window.obj = {}, briefing)
     scenario.draw()
-    $("#scenario-briefing").remove()
-    $("#scenario-builder").show()
+    $("#scenario-briefing").hide()
+    $("#scenario-builder-wrapper").show()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
   # if $("#scenario-builder").length

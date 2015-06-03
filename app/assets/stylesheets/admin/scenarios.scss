@@ -9,8 +9,11 @@ main {
   display: flex;
 }
 
+#scenario-builder-wrapper {
+  display: none;
+}
+
 #scenario-builder {
-  display:none;
   height: 100%;
   overflow: auto;
 
@@ -150,4 +153,67 @@ legend.roles {
 
 .role:not(:first-child) {
   border-top: 1px solid #898989;
+}
+
+.builder {
+  padding-right: 205px;
+  background: #e6e6e6;
+  min-height: 0;
+}
+
+.builder-sidebar {
+  border-left: 1px solid #20788e;
+  min-height: 100%;
+  height: 100%;
+  z-index: 1000;
+  position: fixed;
+  right: 0;
+  width: 205px;
+  background-color: #fff;
+}
+
+.builder-sidebar h3 {
+  color: #20788e;
+  font-size: 20px;
+  padding-bottom: 6px;
+}
+
+.builder-sidebar input {
+  padding: 0 5px 0 5px;
+  height: 38px;
+}
+
+.builder-sidebar select {
+  width: 175px;
+  height: 38px;
+  padding: 0 5px 0 5px;
+}
+
+.builder-sidebar span.optional {
+  text-align: right;
+  width: 175px;
+  float: right;
+  margin: -10px 0 15px 0;
+}
+
+.builder-sidebar textarea {
+  padding: 5px;
+  max-width: 175px;
+}
+
+.builder-sidebar select option {
+  height: 38px;
+}
+
+.builder-sidebar button {
+  float: right;
+}
+
+.builder-sidebar button {
+  border-radius: 4px;
+  background-color: #20788e;
+  border: 0;
+  color: #fff;
+  height: 38px;
+  padding: 0 15px 0 15px;
 }

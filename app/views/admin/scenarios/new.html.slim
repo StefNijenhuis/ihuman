@@ -22,7 +22,7 @@
 
       .form-group
         label for="form-scenario-money-budget" Geldbudget
-        input type="text" class="form-control" id="form-scenario-money-budget" placeholder="&euro; .."
+        input type="text" class="form-control" id="form-scenario-money-budget" placeholder="€ .."
 
     form
       fieldset class="roles"
@@ -47,4 +47,26 @@
 
     button style="float:right;" type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
 
-#scenario-builder
+#scenario-builder-wrapper
+  div class="row clearfix"
+    div class="col-md-10"
+      #scenario-builder
+    div class="col-md-2 builder-sidebar"
+      h3 Contact bewerken
+      form
+        p
+          label Contact
+          select
+            option selected="selected" disabled="disabled" Selecteer een contact
+            option Rol
+        p
+          label Uren
+          input type="text" placeholder="Aantal uur"
+        p
+          label Kosten
+          input type="text" placeholder="Kosten in Euro"
+        p
+          label Standaard respons
+          textarea placeholder="Vul hier de standaard respons in"
+        span class="optional" &#42;optioneel
+        button type="submit" Opslaan
