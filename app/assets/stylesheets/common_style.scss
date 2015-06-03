@@ -69,10 +69,11 @@ input[type="color"]:focus,
   line-height: none;
 }
 
-.row-body{
+.row-body td {
   background-color: #d0e5ea;
+  line-height: none;
 }
 
-.row-body tr{
-  line-height: none;
+.row-body tr:hover td {
+  background-color: #c4d8dd;
 }
