@@ -1,0 +1,24 @@
+div class="col-md-12 search-wrapper"
+  div class="col-md-1"
+    div class="btn-group" role="group"
+      = link_to "Nieuw scenario", new_admin_scenario_path, {class: "btn btn-primary new-scenario-button"}
+  div class="col-md-11"
+    div class="input-group"
+      input type="text" placeholder="Zoeken op..."
+        / span class="glyphicon glyphicon-search" aria-hidden="true"
+        span class="input-group-btn search-button"
+          button class="btn btn-default" type="button"
+            span class="glyphicon glyphicon-search" aria-hidden="true"
+
+table class="table table-striped"
+  thead class="row-head"
+    tr
+      th Projectnaam
+      th Beschrijving
+      th Sorteer
+  tbody class="row-body"
+    - @scenarios.each do |scenario|
+      tr
+        td.title = scenario.title
+        td.description = scenario.description
+        td

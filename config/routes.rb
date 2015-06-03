@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :admin do
+  get 'scenarios/index'
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -25,13 +29,20 @@ Rails.application.routes.draw do
         post "invite", to: "users#send_invites"
       end
     end
+
+    resources :scenarios
   end
 
   resources :scenarios
 
   resources :scenario_sessions
 
-  resources :messages
+  resources :messages do
+    collection do
+      get 'inbox'
+      get 'outbox'
+    end
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

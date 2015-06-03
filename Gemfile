@@ -14,8 +14,14 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Bootstrap because reasons.
+gem 'bootstrap-sass', '~> 3.3.4.1'
+# Font Awesome
+gem 'font-awesome-sass', '~> 4.3.0'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# jquery ui easing
+gem 'jquery-easing-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -42,6 +48,11 @@ gem 'sprockets', '~> 2.8'
 gem 'pg', group: :production
 
 group :development, :test do
+  if RUBY_PLATFORM=~ /i386-mingw32/
+    gem 'coffee-script-source', '1.8.0'
+    gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+  end
+
   gem 'sqlite3'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -38,10 +38,16 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (6.0.0)
+    autoprefixer-rails (5.2.0)
+      execjs
+      json
     bcrypt (3.1.10)
     bcrypt (3.1.10-x86-mingw32)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-sass (3.3.4.1)
+      autoprefixer-rails (>= 5.0.0.1)
+      sass (>= 3.2.19)
     builder (3.2.2)
     byebug (4.0.5)
       columnize (= 0.9.0)
@@ -73,7 +79,7 @@ GEM
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1.1)
+    coffee-script-source (1.8.0)
     colorize (0.7.7)
     columnize (0.9.0)
     cucumber (1.3.19)
@@ -104,6 +110,8 @@ GEM
       activesupport (>= 3.0.0)
     ffi (1.9.8)
     ffi (1.9.8-x86-mingw32)
+    font-awesome-sass (4.3.2.1)
+      sass (~> 3.2)
     formatador (0.2.5)
     gherkin (2.12.2)
       multi_json (~> 1.3)
@@ -150,6 +158,8 @@ GEM
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jquery-easing-rails (0.0.2)
+      railties (>= 3.1.0)
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -297,6 +307,8 @@ GEM
       coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2015.4)
+      tzinfo (>= 1.0.0)
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -316,6 +328,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  bootstrap-sass (~> 3.3.4.1)
   byebug
   capistrano (~> 3.4)
   capistrano-bundler (~> 1.1)
@@ -323,10 +336,12 @@ DEPENDENCIES
   capistrano-rbenv
   capybara (~> 2.4)
   coffee-rails (~> 4.1.0)
+  coffee-script-source (= 1.8.0)
   cucumber-rails (~> 1.4)
   database_cleaner (~> 1.4)
   devise
   factory_girl (~> 4.5)
+  font-awesome-sass (~> 4.3.0)
   guard (~> 2.12)
   guard-bundler (~> 2.1)
   guard-coffeescript (~> 2.0)
@@ -335,6 +350,7 @@ DEPENDENCIES
   guard-rspec (~> 4.5)
   guard-sass (~> 1.6)
   jbuilder (~> 2.0)
+  jquery-easing-rails
   jquery-rails
   letter_opener (~> 1.4)
   pg
@@ -351,5 +367,6 @@ DEPENDENCIES
   terminal-notifier
   terminal-notifier-guard
   turbolinks
+  tzinfo-data
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

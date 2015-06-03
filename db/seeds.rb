@@ -5,3 +5,35 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+#Students
+User.create(email: 'user@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'user', surname: 'student', activated: true)
+User.create(email: 'emmasteen@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'emma', surname: 'steen', activated: true)
+User.create(email: 'nikolaaskooi@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'nikolaas', surname: 'kooi', activated: true)
+User.create(email: 'sophiedraaijer@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'sophie', surname: 'draaijer', activated: true)
+User.create(email: 'stevenzeemeeuw@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'steven', surname: 'zeemeeuw', activated: true)
+User.create(email: 'johnnygeld@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'johnny', surname: 'geld', activated: true)
+User.create(email: 'theongrijsgenot@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'theon', surname: 'grijsgenot', activated: true)
+User.create(email: 'peterkleinevinger@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'peter', surname: 'kleinevinger', activated: true)
+User.create(email: 'freddiekwik@student.nl',password: '12345678', password_confirmation: '12345678', first_name: 'freddie', surname: 'kwik', activated: true)
+
+#Teachers
+User.create(email: 'admin@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'admin', surname: 'teacher', activated: true, role: 'admin')
+User.create(email: 'johnpijn@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'john', surname: 'pijn', activated: true, role: 'admin')
+User.create(email: 'asaboterveld@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'asa', surname: 'boterveld', activated: true, role: 'admin')
+User.create(email: 'meganvos@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'megan', surname: 'vos', activated: true, role: 'admin')
+
+#Superadmins
+User.create(email: 'superadmin@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'super',suffix: 'admin', surname: 'teacher', activated: true, role: 'superadmin')
+
+#scenario sessions
+ScenarioSession.create(scenario_id: 1, student_id: 5, teacher_id: 14)
+
+#Messages inbox
+Message.create(content: "Hallo dit is een seed bericht", sender_id: 5, scenario_session_id: 1, role: "Programmeur")
+
+#Messages outbox
+Message.create(content: "Hallo dit is een seed bericht", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
+
+#Scenarios
+Scenario.create(roles: 'rol1, rol2, rol3, rol4')
