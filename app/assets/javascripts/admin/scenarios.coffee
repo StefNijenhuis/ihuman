@@ -235,6 +235,7 @@ scenariobuilder = ->
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
     roleCount++
+    $(".roles").children(".role").last().children("h4").text("Rol " + roleCount)
     $(".roles").children(".role").last().attr("data-roleID",roleCount);
 
   addRole()
