@@ -148,6 +148,6 @@ legend.roles {
     border-bottom:none;
 }
 
-.role {
+.role:not(:first-child) {
   border-top: 1px solid #898989;
 }
