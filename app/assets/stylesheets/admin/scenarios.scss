@@ -78,7 +78,7 @@ fc-node.question {
   background: #2b9bb7;
 }
 
-fc-add, fc-remove, fc-edit, fc-link {
+fc-add, fc-remove, fc-edit, fc-link, fc-link-remove {
   height: 42px;
   width: 42px;
   display: block;
@@ -94,21 +94,22 @@ fc-add, fc-remove, fc-edit, fc-link {
   color: #fff;
   line-height: 50px;
 
-  -webkit-transition: opacity 0.3s ease-in-out;
-  -moz-transition: opacity 0.3s ease-in-out;
-  -ms-transition: opacity 0.3s ease-in-out;
-  -o-transition: opacity 0.3s ease-in-out;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s, background 0.3s ease-in-out;
 }
 
-fc-node:hover > fc-add, fc-node:hover > fc-remove, fc-node:hover > fc-edit, fc-node:hover > fc-link {
+fc-node:hover > fc-add,
+fc-node:hover > fc-remove,
+fc-node:hover > fc-edit,
+fc-node:hover > fc-link,
+fc-node:hover > fc-link-remove
+{
   opacity: 1;
 }
 
 fc-edit {
   margin: -34px 0px 0px -34px;
 }
-fc-link {
+fc-link, fc-link-remove {
   margin: 44px 0px 0px -34px;
 }
 fc-remove {
@@ -120,6 +121,11 @@ fc-add {
 
 fc-add:hover, fc-edit:hover, fc-remove:hover, fc-link:hover {
   background: #141617;
+  cursor: pointer; cursor: hand;
+}
+
+fc-link-remove:hover {
+  background: #de3f3f;
   cursor: pointer; cursor: hand;
 }
 
