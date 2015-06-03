@@ -58,3 +58,21 @@ input[type="color"]:focus,
   outline: 0 none;
   border: 1px solid #fff;
 }
+
+.btn{
+  // background-color: #20788e;
+}
+
+.row-head{
+  background-color: #20788e;
+  color: white;
+  line-height: none;
+}
+
+.row-body{
+  background-color: #d0e5ea;
+}
+
+.row-body tr{
+  line-height: none;
+}

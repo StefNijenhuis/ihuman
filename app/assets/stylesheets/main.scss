@@ -11,3 +11,8 @@ p.notice, p.alert {
   margin: 30px 20px;
   clear:both;
 }
+
+select, textarea, input {
+  background-color: #d0e5ea;
+  border: 1px solid #d0e5ea;
+}
