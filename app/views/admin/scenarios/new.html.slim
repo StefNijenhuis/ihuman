@@ -1,27 +1,28 @@
 #scenario-briefing
 
-  label Scenario Naam
-  br
-  input type="text" id="form-scenario-title"
-  br
+  h2 Nieuw scenario
 
-  label Briefing
-  br
-  textarea id="form-scenario-briefing"
-  br
+  form
+    .form-group
+      label for="form-scenario-title" Scenario naam
+      input type="text" class="form-control" id="form-scenario-title"
 
+    .form-group
+      label for="form-scenario-briefing" Scenario briefing
+      textarea class="form-control" id="form-scenario-briefing"
 
   h3 Factoren
 
-  checkbox id="form-scenario-time-budget"
-  label Tijdsbudget
-  input type="text" placeholder="Uur .."
-  br
+  p Deze factoren zijn optioneel.
 
-  checkbox id="form-scenario-money-budget"
-  label Geldbudget
-  input type="text" placeholder="&euro; .."
-  br
+  form
+    .form-group
+      label for="form-scenario-time-budget" Tijdsbudget
+      input type="text" class="form-control" id="form-scenario-time-budget" placeholder="Uur .."
+
+    .form-group
+      label for="form-scenario-money-budget" Geldbudget
+      input type="text" class="form-control" id="form-scenario-money-budget" placeholder="&euro; .."
 
   form
     fieldset class="roles"
