@@ -4,22 +4,22 @@ h2 Edit #{resource_name.to_s.humanize}
   = devise_error_messages!
 
   .field
-    = f.label :first_name
+    = f.label :first_name, "Voornaam"
     br
     = f.text_field :first_name, autofocus: true
 
   .field
-    = f.label :suffix
+    = f.label :suffix, "Tussenvoegsel"
     br
     = f.text_field  :suffix
 
   .field
-    = f.label :surname
+    = f.label :surname, "Achernaam"
     br
     = f.text_field :surname
 
   .field
-    = f.label :email
+    = f.label :email, "E-mailadres"
     br
     = f.email_field :email
 
@@ -27,25 +27,25 @@ h2 Edit #{resource_name.to_s.humanize}
     div Currently waiting confirmation for: #{resource.unconfirmed_email}
 
   .field
-    = f.label :password
+    = f.label :password, "Wachtwoord"
     i
-      |  (leave blank if you don't want to change it)
+      |  (laat leeg als u niet wilt wijzigen)
     br
     = f.password_field :password, autocomplete: "off"
 
   .field
-    =f.label :password_confirmation
+    =f.label :password_confirmation, "Wachtwoord herhalen"
     br
     = f.password_field :password_confirmation, autocomplete: "off"
 
   .field
-    = f.label :current_password
+    = f.label :current_password, "Huidig wachtwoord"
     i
-      |  (we need your current password to confirm your changes)
+      |  (we hebben uw huidige wachtwoord nodig om uw wijzigingen door te voeren)
     br
     = f.password_field :current_password, autocomplete: "off"
 
   .actions
-    = f.submit "Update"
+    = link_to "Terug", :back, {class: "btn btn-primary new-scenario-button"}
 
-= link_to "Back", :back
+    button type="submit" Update
