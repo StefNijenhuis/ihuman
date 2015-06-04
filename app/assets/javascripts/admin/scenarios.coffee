@@ -151,6 +151,10 @@ scenariobuilder = ->
       # Children
       this.children(obj.briefing)
 
+      for object in linkQueue
+        this.connect(object['parent'], object['link_to'], ["Left","Right"])
+      linkQueue = []
+
       flowchart.setSuspendDrawing(false);
       flowchart.repaintEverything()
 
@@ -162,17 +166,19 @@ scenariobuilder = ->
           container.animate({ 'min-height': ulHeight }, "slow", "easeInOutCubic");
 
     children: (obj) ->
-      # TODO: Link queue
 
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
 
         if obj.children[child].link_to == null
           link = "<fc-link><i class=\"fa fa-link fa-2x\"></i></fc-link>"
+          add = "<fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>"
         else
           link = "<fc-link-remove><i class=\"fa fa-chain-broken fa-2x\"></i></fc-link-remove>"
+          add = ""
+          linkQueue.push {parent:obj.children[child].id,link_to:obj.children[child].link_to}
 
-        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"#{obj.children[child].type}\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit>#{link}<fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.children[child].content}</fc-node><ul></ul></li>").appendTo(el);
+        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"#{obj.children[child].type}\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit>#{link}<fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove>#{add}#{obj.children[child].content}</fc-node><ul></ul></li>").appendTo(el);
 
         scenario.connect(obj.id, obj.children[child].id)
 
@@ -265,8 +271,12 @@ scenariobuilder = ->
     id = parseInt($(this).attr("data-id"))
 
     if linkParentId != null && id != linkParentId
-      console.log(linkParentId)
+      child = scenario.getObject(id, obj.briefing)[0]
       parent = scenario.getObject(linkParentId, obj.briefing)[0]
+      if child.link_to == parent.id
+        linkParentId = null
+        alert "Mag niet heen en weer linken"
+        return
       parent.link_to = id
       linkParentId = null
 
@@ -279,6 +289,13 @@ scenariobuilder = ->
     #   node = scenario.getObject(id, obj.briefing)[0]
     # node.content = "test"
     # scenario.draw()
+
+  $(document.body).on "click", "fc-link-remove", ->
+    id = parseInt($(this).parent().attr("data-id"))
+    node = scenario.getObject(id, obj.briefing)[0]
+    node.link_to = null
+    scenario.draw()
+
 
   $(document.body).on "click", "fc-link", ->
     linkParentId = parseInt($(this).parent().attr("data-id"))
