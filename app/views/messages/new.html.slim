@@ -2,10 +2,10 @@ h2 Bericht aanmaken
 
 = form_for @message, :url => messages_path(@message), method: :post do |f|
 
-  .field
-    = f.label :scenario_session
-    br
-    = f.select(:scenario_session_id, options_for_select(@scenario_session_options))
+  / .field
+  /   = f.label :scenario_session
+  /   br
+  /   = f.select(:scenario_session_id, options_for_select(@scenario_session_options))
 
   .field
     = f.label :role

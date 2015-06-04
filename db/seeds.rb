@@ -23,9 +23,17 @@ User.create(email: 'johnpijn@teacher.nl',password: '12345678', password_confirma
 User.create(email: 'asaboterveld@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'asa', surname: 'boterveld', activated: true, role: 'admin')
 User.create(email: 'meganvos@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'megan', surname: 'vos', activated: true, role: 'admin')
 
-#Superadmin
+#Superadmins
 User.create(email: 'superadmin@teacher.nl',password: '12345678', password_confirmation: '12345678', first_name: 'super',suffix: 'admin', surname: 'teacher', activated: true, role: 'superadmin')
 
+#scenario sessions
+ScenarioSession.create(scenario_id: 1, student_id: 5, teacher_id: 14)
 
-#Scenario
+#Messages inbox
+Message.create(content: "Hallo dit is een seed bericht", sender_id: 5, scenario_session_id: 1, role: "Programmeur")
+
+#Messages outbox
+Message.create(content: "Hallo dit is een seed bericht", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
+
+#Scenarios
 Scenario.create(roles: 'rol1, rol2, rol3, rol4')
