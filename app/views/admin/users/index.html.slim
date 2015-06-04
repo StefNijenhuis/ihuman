@@ -16,6 +16,11 @@ table class="table table-striped"
         td.surname = user.surname
         td.email = user.email
         td
-        td.activated = user.activated
+
+        - if user.activated = "true"
+          td.activated = "geactiveerd"
+        - else
+          td.activated = "niet geactiveerd"
+
         td.last_sign_in_at = user.last_sign_in_at
         
