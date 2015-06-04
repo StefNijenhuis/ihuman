@@ -1,5 +1,21 @@
 h1 Users#index
 
-b Users
-- @users.each do |user|
-  p = user.email
+table class="table table-striped"
+  thead class="row-head"
+    tr
+      th Naam
+      th Achternaam
+      th Email
+      th Studentnummer
+      th Geactiveerd
+      th Laatst ingelogd
+  tbody class="row-body"
+    - @users.each do |user|
+      tr
+        td.first_name = user.first_name
+        td.surname = user.surname
+        td.email = user.email
+        td
+        td.activated = user.activated
+        td.last_sign_in_at = user.last_sign_in_at
+        
