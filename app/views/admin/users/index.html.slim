@@ -1,26 +1,28 @@
-h1 Users#index
+div class="row clearfix"
+  div class="col-md-12"
+    div class="btn-group new-message" role="group"
+      = link_to "Nieuwe gebruiker", new_message_path, {class: "btn btn-primary new-scenario-button"}
+    table class="table table-striped"
+      thead class="row-head"
+        tr
+          th Naam
+          th Achternaam
+          th Email
+          th Studentnummer
+          th Geactiveerd
+          th Laatst ingelogd
+      tbody class="row-body"
+        - @users.each do |user|
+          tr
+            td.first_name = user.first_name
+            td.surname = user.surname
+            td.email = user.email
+            td
 
-table class="table table-striped"
-  thead class="row-head"
-    tr
-      th Naam
-      th Achternaam
-      th Email
-      th Studentnummer
-      th Geactiveerd
-      th Laatst ingelogd
-  tbody class="row-body"
-    - @users.each do |user|
-      tr
-        td.first_name = user.first_name
-        td.surname = user.surname
-        td.email = user.email
-        td
+            - if user.activated = "true"
+              td.activated = "geactiveerd"
+            - else
+              td.activated = "niet geactiveerd"
 
-        - if user.activated = "true"
-          td.activated = "geactiveerd"
-        - else
-          td.activated = "niet geactiveerd"
-
-        td.last_sign_in_at = user.last_sign_in_at
+            td.last_sign_in_at = user.last_sign_in_at
         
