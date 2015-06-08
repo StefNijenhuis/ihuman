@@ -73,6 +73,10 @@ input[type="color"]:focus,
   line-height: none;
 }
 
+.row-body tr:hover td {
+  background-color: #c4d8dd;
+}
+
 button,
 a.btn {
   background-color: #20788e;
@@ -86,4 +90,20 @@ a.btn {
   &:hover {
     background-color: #2592ad;
   }
+}
+
+.field {
+  input {
+    height: 38px;
+    width: 300px;
+    padding: 0 10px 0 10px;
+    margin-bottom: 15px;
+  }
+  label {
+    margin-bottom: 0;
+  }
+}
+
+.actions a {
+  margin-right: 15px;
 }
