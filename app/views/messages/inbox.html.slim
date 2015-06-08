@@ -1,19 +1,19 @@
 div class="row clearfix"
   div class="col-md-12"
-    div class="btn-group" role="group"
+    div class="btn-group new-message" role="group"
       = link_to "Nieuw bericht", new_message_path, {class: "btn btn-primary new-scenario-button"}
     h3 Vandaag
-    table class="table"
-      thead
+    table class="table table-striped"
+      thead class="row-head"
         tr
           th: input type="checkbox"
           th Afzender
           th Bericht
           th Tijdstip
-      tbody
+      tbody class="row-body"
         - @messages.each do |message|
           tr
-            td: input type="checkbox"
+            td: input type="checkbox" class="checkbox"
             - if current_user.role == "user"
               td.name = message.role
             - else

@@ -10,16 +10,12 @@
     font-size: 28px;
 }
 
-.navbar-header h2 {
+.navbar-header span.header-title {
     font-size: 18px;
-    padding: 0 50px 0 25px;
     margin: 0;
-    display: inline;
     color: #fff;
-}
-
-.top-search {
-    padding-left: 50px;
+    position:relative; 
+    top: -6px;
 }
 
 /* Sidebar */
