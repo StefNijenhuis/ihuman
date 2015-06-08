@@ -11,11 +11,14 @@ main {
 
 #scenario-builder-wrapper {
   display: none;
+  margin: -1px 0px 0px 0px;
 }
 
 #scenario-builder {
   height: 100%;
   overflow: auto;
+
+  margin-left: -25px;
 
   font-size: 12px;
   font-family: sans-serif;

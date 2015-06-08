@@ -162,8 +162,25 @@ scenariobuilder = ->
 
       if initialized
         ulHeight = container.children("ul").children("li").height()
+
+        # If container is smaller then the window, set minimum height to window height
+        # Minus navbar height so that the container will hit the bottom of the window
+        if ulHeight < (window.innerHeight - $('.navbar').height()) && container.height() < (window.innerHeight - $('.navbar').height())
+          container.css("min-height", window.innerHeight - $('.navbar').height())
+          minHeight = container.height()
+
+        # Scroll container height up if it's larger then the content
         if ulHeight < minHeight
-          container.animate({ 'min-height': ulHeight }, "slow", "easeInOutCubic");
+          if ulHeight < (window.innerHeight - $('.navbar').height())
+            container.animate({ 'min-height': window.innerHeight - $('.navbar').height() }, "slow", "easeInOutCubic");
+          else
+            container.animate({ 'min-height': ulHeight }, "slow", "easeInOutCubic");
+
+        # if minHeight < (window.innerHeight - $('.navbar').height())
+        #   console.log(window.innerHeight - $('.navbar').height())
+
+        #   container.height(window.innerHeight - $('.navbar').height())
+
 
     children: (obj) ->
 
@@ -290,6 +307,10 @@ scenariobuilder = ->
     # node.content = "test"
     # scenario.draw()
 
+  container.click (e) ->
+    return unless e.target is this
+    console.log("wtf")
+
   $(document.body).on "click", "fc-link-remove", ->
     id = parseInt($(this).parent().attr("data-id"))
     node = scenario.getObject(id, obj.briefing)[0]
@@ -309,20 +330,20 @@ scenariobuilder = ->
     $("#scenario-builder-wrapper").show()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
-  # if $("#scenario-builder").length
-  #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-  #   # scenario.addNode("question", 0, "question 1")
-  #   # scenario.addNode("question", 0, "question 2")
-  #   # scenario.addNode("question", 0, "question 3")
-  #   # scenario.addNode("question", 3, "question 2")
-  #   # scenario.addNode("question", 3, "question 2")
+  if $("#scenario-builder").length
+    window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
+    scenario.addNode("question", 0, "question 1")
+    scenario.addNode("question", 0, "question 2")
+    # scenario.addNode("question", 0, "question 3")
+    # scenario.addNode("question", 3, "question 2")
+    # scenario.addNode("question", 3, "question 2")
 
-  #   scenario.draw()
-  #   $("#scenario-briefing").hide()
-  #   $("#scenario-builder-wrapper").show()
-  #   flowchart.repaintEverything()
+    scenario.draw()
+    $("#scenario-briefing").hide()
+    $("#scenario-builder-wrapper").show()
+    flowchart.repaintEverything()
 
-  #   $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
     # $("#scenario-builder").panzoom();
 
