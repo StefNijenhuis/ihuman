@@ -2,8 +2,8 @@ class ScenarioSessionsController < ApplicationController
 
   def new
     @scenarios_options = Scenario.all.map{|s| [s.title, s.id]}
-    @teachers_options = User.where(role: [1,2]).map{|to| [to.first_name, to.id]}
-    @students_options = User.where(role: 0).map{|so| [so.first_name, so.id]}
+    @teachers_options = User.where(role: [1,2]).map{|to| [to.fullname, to.id]}
+    @students_options = User.where(role: 0).map{|so| [so.fullname, so.id]}
 
     @scenario_session = ScenarioSession.new
   end
