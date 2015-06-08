@@ -3,10 +3,12 @@
     ul class="sidebar-nav"
       - if current_user.role == "superadmin" || current_user.role == "admin"
         li = link_to "Scenario's", admin_scenarios_path
-        li = link_to "Users", admin_users_path
-      li = link_to "Account", edit_user_registration_path
+        li = link_to "Gebruikers", admin_users_path
       li = link_to "Inbox", inbox_messages_path
       li = link_to "Outbox", outbox_messages_path
+      li class="spacer"
+        hr
+      li = link_to "Account", edit_user_registration_path
       li = link_to "Uitloggen", destroy_user_session_path, method: 'DELETE'
   / Header/top menu
   div class="row clearfix"

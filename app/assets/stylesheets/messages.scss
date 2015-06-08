@@ -1,3 +1,13 @@
 div.new-message {
 	margin: 20px 0 20px 0;
 }
+
+div.new-message a {
+	margin-right: 15px;
+}
+
+
+form#new_message textarea {
+	min-width: 300px;
+	min-height: 100px;
+}
