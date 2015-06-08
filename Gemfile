@@ -18,6 +18,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'bootstrap-sass', '~> 3.3.4.1'
 # Font Awesome
 gem 'font-awesome-sass', '~> 4.3.0'
+# Bootstrap datepicker
+gem 'bootstrap-datepicker-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # jquery ui easing
