@@ -1,7 +1,7 @@
 div class="row clearfix"
   div class="col-md-12"
     div class="btn-group new-message" role="group"
-      = link_to "Nieuwe gebruiker", new_message_path, {class: "btn btn-primary new-scenario-button"}
+      = link_to "Nieuwe gebruiker", new_admin_user_path, {class: "btn btn-primary new-scenario-button"}
     table class="table table-striped"
       thead class="row-head"
         tr
@@ -25,4 +25,4 @@ div class="row clearfix"
               td.activated = "niet geactiveerd"
 
             td.last_sign_in_at = user.last_sign_in_at
-        
+
