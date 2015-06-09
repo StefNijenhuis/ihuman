@@ -8,4 +8,8 @@ class PagesController < ApplicationController
     end
   end
 
+  def unauthorized
+
+  end
+
 end

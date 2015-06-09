@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_role
     if current_user.role == "user"
-      render :_unauthorized
+      redirect_to unauthorized_path
     end
   end
 
