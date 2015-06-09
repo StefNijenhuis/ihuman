@@ -1,39 +1,44 @@
 #scenario-briefing
-  div class="col-md-4"
+  div class=""
     h2 Nieuw scenario
 
     form
-      .form-group
+      .field
         label for="form-scenario-title" Scenario naam
-        input type="text" class="form-control" id="form-scenario-title"
+        br
+        input type="text" id="form-scenario-title"
 
-      .form-group
+      .field
         label for="form-scenario-briefing" Scenario briefing
-        textarea class="form-control" id="form-scenario-briefing"
-
+        br
+        textarea id="form-scenario-briefing"
+        br
+        br
     h3 Factoren
 
     p Deze factoren zijn optioneel.
 
     form
-      .form-group
+      .field
         label for="form-scenario-time-budget" Tijdsbudget
-        input type="text" class="form-control" id="form-scenario-time-budget" placeholder="Uur .."
+        br
+        input type="text" id="form-scenario-time-budget" placeholder="Uur .."
 
-      .form-group
+      .field
         label for="form-scenario-money-budget" Geldbudget
-        input type="text" class="form-control" id="form-scenario-money-budget" placeholder="€ .."
+        br
+        input type="text" id="form-scenario-money-budget" placeholder="€ .."
 
     form
       fieldset class="roles"
-        legend class="roles" Rolen
+        legend class="roles" Rollen
         .insert-roles
         button type="button" class="btn btn-default add-role-button" Extra rol toevoegen
 
     template id="role-template"
       .role
         h4 Rol
-        .form-group
+        .field
             label for="form-scenario-role-name" Naam
             input type="text" class="form-control" id="form-scenario-role-name" placeholder="Naam"
 
@@ -45,7 +50,7 @@
                   label for="form-scenario-role-description" Beschrijving
                   textarea class="form-control" id="form-scenario-role-description" placeholder="Beschrijving"
 
-    button style="float:right;" type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
+    button type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
 
 #scenario-builder-wrapper
   div class="row clearfix"
