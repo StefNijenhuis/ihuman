@@ -1,12 +1,9 @@
 class Admin::UsersController < ApplicationController
-  # after_action :verify_authorized, :only => :index
   skip_before_filter :verify_authenticity_token, :only => :send_invites
   before_action :check_admin, :only => :index
 
-
   def index
     @users = User.all
-    # authorize @users
   end
 
   def invite

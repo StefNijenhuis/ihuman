@@ -1,5 +1,5 @@
 class Admin::ScenariosController < ApplicationController
-  #after_action :verify_authorized
+  before_action :authenticate_user_role
 
   def index
     @scenarios = Scenario.all
