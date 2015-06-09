@@ -16,4 +16,17 @@ class Admin::ScenariosController < ApplicationController
     end
   end
 
+  def ajax_save
+    json = request.POST['data']
+    obj = JSON.parse json
+    name = obj["name"]
+    # obj["scenario"]['briefing']['content']
+
+    render :json => {success:"Joy"}
+  end
+
+  def ajax_load
+    abort("wow")
+  end
+
 end

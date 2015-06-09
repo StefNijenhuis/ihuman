@@ -30,7 +30,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :scenarios
+    resources :scenarios do
+      collection do
+        post 'ajax_save'
+        get 'ajax_load'
+      end
+    end
   end
 
   resources :scenarios
