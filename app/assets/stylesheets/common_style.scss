@@ -78,8 +78,9 @@ input[type="color"]:focus,
 }
 
 button,
-a.btn {
-  background-color: #20788e;
+a.btn,
+input.btn,
+button.btn {
   border-radius: 4px;
   background-color: #20788e;
   border: 0;
@@ -87,23 +88,56 @@ a.btn {
   height: 38px;
   line-height: 38px;
   padding: 0 15px 0 15px;
-  &:hover {
+  &:hover, &:active, &:focus {
+    color: #fff;
     background-color: #2592ad;
   }
 }
 
-.field {
-  input {
+.field, .form-group, .form-group {
+  input, select {
+    background-color: #d0e5ea;
+    border: 1px solid #d0e5ea;
     height: 38px;
     width: 300px;
     padding: 0 10px 0 10px;
     margin-bottom: 15px;
+    border-radius: 0;
+    &:focus {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      border: 1px solid #d0e5ea;
+    }
   }
   label {
     margin-bottom: 0;
   }
+  select option {
+    padding: 10px;
+  }
+}
+
+textarea {
+  padding: 10px;
+  min-width: 300px;
+  min-height: 100px;
+  &:focus {
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      border: 1px solid #d0e5ea;
+    }
 }
 
 .actions a {
   margin-right: 15px;
+}
+
+fieldset {
+  border: 1px solid #20788e !important;
+}
+
+fieldset legend {
+  color: #20788e;
 }
