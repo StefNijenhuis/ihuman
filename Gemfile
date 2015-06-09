@@ -34,8 +34,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'slim', '~> 3.0'
 # Device authentication
 gem 'devise'
-# Pundit authorization
-gem 'pundit', '~> 1.0'
 
 gem 'sprockets', '~> 2.8'
 
