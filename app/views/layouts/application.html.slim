@@ -9,19 +9,41 @@ html
   - if request.path == "/user/sign_in"
     body class="gradient"
       div id="wrapper" class=""
-          p.notice = notice
-          p.alert = alert
-          nav
-            - if request.path != "/user/sign_in"
-              = render "layouts/sidebar.html.slim"
-          == yield
+        nav
+          - if request.path != "/user/sign_in"
+            = render "layouts/sidebar.html.slim"
+
+        - if notice.present?
+          div class="alert alert-info"
+            a href="#" class="close" data-dismiss="alert" &times;
+            strong Melding: 
+            = notice
+
+        - if alert.present?
+          div class="alert alert-danger"
+            a href="#" class="close" data-dismiss="alert" &times;
+            strong Fout: 
+            = alert
+
+        == yield
 
   - else
     body
       div id="wrapper" class=""
-        p.notice = notice
-        p.alert = alert
         nav
           - if request.path != "/user/sign_in"
             = render "layouts/sidebar.html.slim"
+
+        - if notice.present?
+          div class="alert alert-info"
+            a href="#" class="close" data-dismiss="alert" &times;
+            strong Melding: 
+            = notice
+
+        - if alert.present?
+          div class="alert alert-danger"
+            a href="#" class="close" data-dismiss="alert" &times;
+            strong Fout: 
+            = alert
+
         == yield
