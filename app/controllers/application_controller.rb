@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
+  before_filter :remove_authentication_flash_message_if_root_url_requested
   before_action :first_login
 
   private
@@ -18,6 +19,12 @@ class ApplicationController < ActionController::Base
   def authenticate_user_role
     if current_user.role == "user"
       redirect_to unauthorized_path
+    end
+  end
+
+  def remove_authentication_flash_message_if_root_url_requested
+    if session[:user_return_to] == root_path and flash[:alert] == I18n.t('devise.failure.unauthenticated')
+      flash[:alert] = nil
     end
   end
 
