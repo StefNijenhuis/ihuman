@@ -8,20 +8,20 @@ html
 
     - if request.path == "/user/sign_in"
       body class="gradient"
+        div id="wrapper" class=""
+            p.notice = notice
+            p.alert = alert
+            nav
+              - if request.path != "/user/sign_in"
+                = render "layouts/sidebar.html.slim"
+            == yield
+
     - else
       body
-
-    div id="wrapper" class=""
-      / p.notice = notice
-      / p.alert = alert
-      nav
-        - if request.path != "/user/sign_in"
-          = render "layouts/sidebar.html.slim"
-
-        / - if user_signed_in?
-        /   = current_user.email
-        /   = link_to "Edit", edit_user_registration_path
-        /   = link_to "Logout", destroy_user_session_path, method: 'DELETE'
-        / - else
-        /   = link_to "Login", new_user_session_path
-      == yield
+        div id="wrapper" class=""
+          p.notice = notice
+          p.alert = alert
+          nav
+            - if request.path != "/user/sign_in"
+              = render "layouts/sidebar.html.slim"
+          == yield

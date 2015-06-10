@@ -362,8 +362,8 @@ scenariobuilder = ->
     # node.content = "test"
     # scenario.draw()
 
-  container.click (e) ->
-    return unless e.target is this
+  # container.click (e) ->
+  #   return unless e.target is this
 
   $(document.body).on "click", "fc-link-remove", ->
     id = parseInt($(this).parent().attr("data-id"))

@@ -10,13 +10,12 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= webcomponents-lite.js
 //= require jquery
 //= require jquery_ujs
 //= require jquery.easing
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require dom.jsPlumb-1.7.5.js
-//= require panzoom.js
+//= webcomponents.min.js
 //= require_tree .
 //= require bootstrap-datepicker
