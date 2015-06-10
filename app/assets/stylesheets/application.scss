@@ -1,11 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "bootstrap-datepicker3";
 @import "common_style";
 @import "login";
 @import "main";
 @import "menu";
 @import "pages";
 @import "messages";
+@import "scenarios";
 @import "admin/scenarios";
 @import "font-awesome-sprockets";
 @import "font-awesome";

@@ -2,6 +2,8 @@ div class="row clearfix"
   div class="col-md-12"
     div class="btn-group new-message" role="group"
       = link_to "Nieuw scenario", new_admin_scenario_path, {class: "btn btn-primary new-scenario-button"}
+    div class="btn-group new-message" role="group"
+      = link_to "Nieuw scenario sessie", new_scenario_session_path, {class: "btn btn-primary new-scenario-button"}
     table class="table table-striped"
       thead class="row-head"
         tr
@@ -14,3 +16,4 @@ div class="row clearfix"
             td.title = scenario.title
             td.description = scenario.description
             td
+

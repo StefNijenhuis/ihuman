@@ -384,20 +384,15 @@ scenariobuilder = ->
     $("#scenario-builder-wrapper").show()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
-  if $("#scenario-builder").length
-    window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
-    scenario.addNode("question", 0, "question 1")
-    scenario.addNode("question", 0, "question 2")
-    # scenario.addNode("question", 0, "question 3")
-    # scenario.addNode("question", 3, "question 2")
-    # scenario.addNode("question", 3, "question 2")
+  # if $("#scenario-builder").length
+  #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
 
-    scenario.draw()
-    $("#scenario-briefing").hide()
-    $("#scenario-builder-wrapper").show()
-    flowchart.repaintEverything()
+  #   scenario.draw()
+  #   $("#scenario-briefing").hide()
+  #   $("#scenario-builder-wrapper").show()
+  #   flowchart.repaintEverything()
 
-    $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+  #   $("#wrapper").toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
 
     # $("#scenario-builder").panzoom();
 

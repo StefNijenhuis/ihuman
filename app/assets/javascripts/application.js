@@ -19,3 +19,4 @@
 //= require dom.jsPlumb-1.7.5.js
 //= require panzoom.js
 //= require_tree .
+//= require bootstrap-datepicker

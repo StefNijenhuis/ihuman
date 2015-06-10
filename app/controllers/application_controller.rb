@@ -1,8 +1,4 @@
 class ApplicationController < ActionController::Base
-  include Pundit
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
   before_action :authenticate_user!
   before_action :first_login
 
@@ -16,6 +12,12 @@ class ApplicationController < ActionController::Base
        !current_user.activated
 
       return redirect_to edit_user_registration_path
+    end
+  end
+
+  def authenticate_user_role
+    if current_user.role == "user"
+      redirect_to unauthorized_path
     end
   end
 

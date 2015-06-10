@@ -111,6 +111,11 @@
     background-color: #20788e;
 }
 
+.sidebar-nav li.spacer hr {
+    height: 2px;
+    margin: 10px 0 10px 0;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding: 0 25px 0 230px;

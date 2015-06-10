@@ -13,7 +13,7 @@ div class="row clearfix"
       tbody class="row-body"
         - @messages.each do |message|
           tr
-            td: input type="checkbox" class="checkbox"
+            td: input type="checkbox"
             - if current_user.role == "user"
               td.name = message.role
             - else

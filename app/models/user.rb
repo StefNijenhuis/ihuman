@@ -20,4 +20,5 @@ class User < ActiveRecord::Base
   def fullname
     self.suffix.present? ? ("#{first_name} #{suffix} #{surname}") : ("#{first_name} #{surname}")
   end
+
 end

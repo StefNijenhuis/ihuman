@@ -1,12 +1,9 @@
 class Admin::UsersController < ApplicationController
-  # after_action :verify_authorized, :only => :index
   skip_before_filter :verify_authenticity_token, :only => :send_invites
-  before_action :check_admin, :only => :index
-
+  before_action :authenticate_user_role
 
   def index
     @users = User.all
-    # authorize @users
   end
 
   def invite
@@ -30,12 +27,6 @@ class Admin::UsersController < ApplicationController
   private
     def list_user_params
       params.require(:users).permit(:emails)
-    end
-
-    def check_admin
-      if current_user.role == "superadmin" || current_user.role == "admin"
-        # Do something
-      end
     end
 
 end
