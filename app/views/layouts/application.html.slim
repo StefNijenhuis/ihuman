@@ -6,22 +6,22 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
-    - if request.path == "/user/sign_in"
-      body class="gradient"
-        div id="wrapper" class=""
-            p.notice = notice
-            p.alert = alert
-            nav
-              - if request.path != "/user/sign_in"
-                = render "layouts/sidebar.html.slim"
-            == yield
-
-    - else
-      body
-        div id="wrapper" class=""
+  - if request.path == "/user/sign_in"
+    body class="gradient"
+      div id="wrapper" class=""
           p.notice = notice
           p.alert = alert
           nav
             - if request.path != "/user/sign_in"
               = render "layouts/sidebar.html.slim"
           == yield
+
+  - else
+    body
+      div id="wrapper" class=""
+        p.notice = notice
+        p.alert = alert
+        nav
+          - if request.path != "/user/sign_in"
+            = render "layouts/sidebar.html.slim"
+        == yield
