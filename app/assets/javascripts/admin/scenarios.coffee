@@ -337,6 +337,11 @@ scenariobuilder = ->
     id = parseInt($(this).parent().attr("data-id"))
     scenario.removeNode(id, window.obj.briefing)
 
+  $(document.body).on "click", "#form-scenario-save", ->
+    json = this.save(window.obj)
+    this.ajax_save(json, scenarioId)
+
+
   $(document.body).on "click", "fc-node", (e) ->
     return unless e.target is this #Negeer clicks op children
 
