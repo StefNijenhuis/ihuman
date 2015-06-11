@@ -47,6 +47,15 @@ scenariobuilder = ->
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
 
+    debug: ->
+      console.log idCount
+      console.log title
+      console.log briefing
+      console.log timeBudget
+      console.log moneyBudget
+      console.log window.scenarioId
+
+
     addNode: (@type, @parent, @content) ->
 
       switch @type
@@ -146,12 +155,12 @@ scenariobuilder = ->
       @obj = scenario['scenario']
       window.obj = @obj
 
-      title: scenario['title']
-      idCount: scenario['idCount']
-      briefing: scenario['briefing']
-      timeBudget: scenario['timeBudger']
-      moneyBudget: scenario['moneyBudget']
-      roles: scenario['roles']
+      title = scenario['title']
+      idCount = scenario['idCount']
+      briefing = scenario['briefing']
+      timeBudget = scenario['timeBudger']
+      moneyBudget = scenario['moneyBudget']
+      roles = scenario['roles']
 
       this.draw()
 
