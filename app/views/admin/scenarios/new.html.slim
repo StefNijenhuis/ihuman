@@ -48,7 +48,7 @@
 
         .form-group
                   label for="form-scenario-role-description" Beschrijving
-                  textarea class="form-control" id="form-scenario-role-description" placeholder="Beschrijving"
+                  textarea style="max-with: 260px;" id="form-scenario-role-description" placeholder="Beschrijving"
 
     button type="submit" class="btn btn-primary" id="form-scenario-new" Volgende
 
@@ -57,6 +57,8 @@
     div class="col-md-10"
       #scenario-builder
     div class="col-md-2 builder-sidebar"
+
+      button type="submit" class="btn btn-primary" id="form-scenario-save" Scenario opslaan
 
     template id="form-contact-template"
       h3 Contact bewerken
@@ -115,3 +117,5 @@
           textarea id="standard-response" placeholder="Vul hier de standaard respons in"
         span class="optional" &#42;optioneel
         button type="submit" class="edit-choice" Aanpassen
+
+
