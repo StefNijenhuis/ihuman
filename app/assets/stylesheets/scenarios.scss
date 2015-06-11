@@ -2,3 +2,8 @@ form#new_scenario .field textarea {
 	min-width: 300px;
 	min-height: 100px;
 }
+
+fieldset.roles input,
+fieldset.roles textarea {
+	width: 260px;
+}
