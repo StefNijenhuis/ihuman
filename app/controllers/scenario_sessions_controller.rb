@@ -12,10 +12,8 @@ class ScenarioSessionsController < ApplicationController
     @scenario_session = ScenarioSession.new(scenario_session_params)
     @scenario_session.teacher = current_user
     if @scenario_session.save
-      abort(@scenario_session.inspect)
-      redirect_to @scenario_session
-    end
 
+    end
   end
 
   private
