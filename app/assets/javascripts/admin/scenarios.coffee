@@ -37,7 +37,7 @@ scenariobuilder = ->
 
   class Scenario
     idCount = 0
-    name = null
+    title = null
     briefing = null
     timeBudget = null
     moneyBudget = null
@@ -115,7 +115,7 @@ scenariobuilder = ->
 
     save: ->
       # Get values from DOM if not stored in JS yet (new scenario vs load)
-      name = $("#form-scenario-title").val()  if name is null
+      title = $("#form-scenario-title").val()  if title is null
       briefing = $("#form-scenario-briefing").val()  if briefing is null
       timeBudget = $("#form-scenario-time-budget").val()  if timeBudget is null
       moneyBudget = $("#form-scenario-money-budget").val()  if moneyBudget is null
@@ -130,7 +130,7 @@ scenariobuilder = ->
 
       # Create a temp. scenario object
       scenario =
-        name: name
+        title: title
         idCount: idCount
         briefing: briefing
         timeBudget: timeBudget
@@ -145,7 +145,7 @@ scenariobuilder = ->
       @obj = json['scenario']
       window.obj = @obj
 
-      name: json['name']
+      title: json['title']
       idCount: json['idCount']
       briefing: json['briefing']
       timeBudget: json['timeBudger']
