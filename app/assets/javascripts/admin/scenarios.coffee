@@ -42,7 +42,7 @@ scenariobuilder = ->
     timeBudget = null
     moneyBudget = null
     roles = []
-    scenarioId = null
+    window.scenarioId = null
 
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
@@ -156,7 +156,7 @@ scenariobuilder = ->
       this.draw()
 
     ajax_save: (obj, id) ->
-      id = (if typeof id isnt "undefined" then id else scenarioId)
+      id = (if typeof id isnt "undefined" then id else window.scenarioId)
 
       request = $.ajax
         type: "POST",
@@ -165,7 +165,7 @@ scenariobuilder = ->
         data: "data=" + obj + "&id=" + id
 
       request.done (data) ->
-        scenarioId = data.id
+        window.scenarioId = data.id
 
       request.fail (jqXHR, textStatus) ->
         alert "Request failed: " + textStatus
@@ -346,8 +346,8 @@ scenariobuilder = ->
     scenario.removeNode(id, window.obj.briefing)
 
   $(document.body).on "click", "#form-scenario-save", ->
-    json = this.save(window.obj)
-    this.ajax_save(json, scenarioId)
+    json = scenario.save(window.obj)
+    scenario.ajax_save(json, window.scenarioId)
 
 
   $(document.body).on "click", "fc-node", (e) ->
