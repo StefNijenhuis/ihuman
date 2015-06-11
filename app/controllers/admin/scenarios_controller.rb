@@ -30,7 +30,6 @@ class Admin::ScenariosController < ApplicationController
       render :json => {status: "fail"}
     end
 
-    render :json => {success:"Joy"}
   end
 
   def ajax_load
