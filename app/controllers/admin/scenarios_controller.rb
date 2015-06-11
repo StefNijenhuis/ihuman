@@ -1,5 +1,5 @@
 class Admin::ScenariosController < ApplicationController
-  before_action :authenticate_user_role
+  before_action :authorize_admin
 
   def index
     @scenarios = Scenario.all
@@ -39,7 +39,13 @@ class Admin::ScenariosController < ApplicationController
   end
 
   def ajax_load
-    abort("wow")
+    id = request.GET['id']
+    if @scenario = Scenario.where(id:id).last
+      render :json => {status: "success", id: @scenario.id, data: @scenario.content}
+    else
+      render :json => {status: "not found"}
+    end
+
   end
 
 end

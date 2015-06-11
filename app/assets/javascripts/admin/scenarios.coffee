@@ -141,16 +141,17 @@ scenariobuilder = ->
       JSON.stringify(scenario)
 
     load: (obj) ->
-      json = JSON.parse( obj )
-      @obj = json['scenario']
+      json = JSON.parse( obj.responseText )
+      scenario = JSON.parse(json.data)
+      @obj = scenario['scenario']
       window.obj = @obj
 
-      title: json['title']
-      idCount: json['idCount']
-      briefing: json['briefing']
-      timeBudget: json['timeBudger']
-      moneyBudget: json['moneyBudget']
-      roles: json['roles']
+      title: scenario['title']
+      idCount: scenario['idCount']
+      briefing: scenario['briefing']
+      timeBudget: scenario['timeBudger']
+      moneyBudget: scenario['moneyBudget']
+      roles: scenario['roles']
 
       this.draw()
 
@@ -169,13 +170,17 @@ scenariobuilder = ->
       request.fail (jqXHR, textStatus) ->
         alert "Request failed: " + textStatus
 
-    ajax_load: ->
-      console.log("hi")
-      $.ajax
+    ajax_load: (id) ->
+      request = $.ajax
         dataType: "json"
-        url: url
-        data: data
-        success: success
+        url: "/admin/scenarios/ajax_load"
+        data: "id=" + id
+
+      request.done (data) ->
+        return data
+
+      request.fail (jqXHR, textStatus) ->
+        alert "Request failed: " + textStatus
 
     getRoles: (obj) ->
       if this.roles == []

@@ -22,6 +22,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def authorize_admin
+    redirect_to unauthorized_path unless current_user.admin? || current_user.superadmin?
+  end
+
   def remove_authentication_flash_message_if_root_url_requested
     if session[:user_return_to] == root_path and flash[:alert] == I18n.t('devise.failure.unauthenticated')
       flash[:alert] = nil
