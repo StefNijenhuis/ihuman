@@ -20,7 +20,7 @@ class Admin::ScenariosController < ApplicationController
     id = request.POST['id']
     json = request.POST['data']
     obj = JSON.parse json
-    title = obj["title"]
+    title = obj["name"]
     # obj["scenario"]['briefing']['content']
     if id == "null"
       @scenario = Scenario.new
