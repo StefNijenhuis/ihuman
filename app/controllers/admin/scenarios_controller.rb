@@ -17,20 +17,25 @@ class Admin::ScenariosController < ApplicationController
   # end
 
   def ajax_save
+    id = request.POST['id']
     json = request.POST['data']
     obj = JSON.parse json
     title = obj["title"]
     # obj["scenario"]['briefing']['content']
-    @scenario = Scenario.new
+    if id == "null"
+      @scenario = Scenario.new
+    else
+      @scenario = Scenario.where(id:id).last
+    end
+
     @scenario.title = title
     @scenario.content = json
+
     if @scenario.save
-      render :json => {status: "success"}
+      render :json => {status: "success", id: @scenario.id}
     else
       render :json => {status: "fail"}
     end
-
-    render :json => {success:"Joy"}
   end
 
   def ajax_load

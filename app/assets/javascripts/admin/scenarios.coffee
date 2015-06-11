@@ -42,6 +42,7 @@ scenariobuilder = ->
     timeBudget = null
     moneyBudget = null
     roles = []
+    scenarioId = null
 
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
@@ -153,15 +154,17 @@ scenariobuilder = ->
 
       this.draw()
 
-    ajax_save: (obj) ->
+    ajax_save: (obj, id) ->
+      id = (if typeof id isnt "undefined" then id else scenarioId)
+
       request = $.ajax
         type: "POST",
         dataType: "json"
         url: "/admin/scenarios/ajax_save"
-        data: "data=" + obj
+        data: "data=" + obj + "&id=" + id
 
       request.done (data) ->
-        console.log data.success
+        scenarioId = data.id
 
       request.fail (jqXHR, textStatus) ->
         alert "Request failed: " + textStatus
