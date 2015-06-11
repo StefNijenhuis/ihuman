@@ -19,7 +19,7 @@ class Admin::ScenariosController < ApplicationController
   def ajax_save
     json = request.POST['data']
     obj = JSON.parse json
-    title = obj["title"]
+    title = obj["name"]
     # obj["scenario"]['briefing']['content']
     @scenario = Scenario.new
     @scenario.title = title
