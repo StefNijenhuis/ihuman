@@ -4,8 +4,7 @@ form#new_scenario .field textarea {
 }
 
 fieldset.roles input,
-textarea#form-scenario-role-description {
+fieldset.roles textarea#form-scenario-role-description {
 	width: 260px;
-	max-width: 260px;
 	min-width: 260px;
 }
