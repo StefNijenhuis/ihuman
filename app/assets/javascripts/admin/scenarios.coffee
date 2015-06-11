@@ -7,6 +7,7 @@ scenariobuilder = ->
   linkParentId = null
   linkQueue = []
   activeid = null
+  window.roles = []
 
   ### Configuration ###
   wrapper = $("#scenario-builder-wrapper")
@@ -41,7 +42,6 @@ scenariobuilder = ->
     briefing = null
     timeBudget = null
     moneyBudget = null
-    roles = []
     window.scenarioId = null
 
     constructor: (@obj, @briefing) ->
@@ -54,6 +54,7 @@ scenariobuilder = ->
       console.log timeBudget
       console.log moneyBudget
       console.log window.scenarioId
+      console.log roles
 
 
     addNode: (@type, @parent, @content) ->
@@ -134,6 +135,7 @@ scenariobuilder = ->
           role =
             name: $(this).find("#form-scenario-role-name").val()
             role: $(this).find("#form-scenario-role-role").val()
+
             description: $(this).find("#form-scenario-role-description").val()
           roles.push role
 
@@ -149,9 +151,10 @@ scenariobuilder = ->
       scenario['scenario'] = @obj
       JSON.stringify(scenario)
 
-    load: (obj) ->
+    load: (obj, id) ->
       json = JSON.parse( obj.responseText )
       scenario = JSON.parse(json.data)
+      window.scenarioId = id
       @obj = scenario['scenario']
       window.obj = @obj
 
@@ -160,7 +163,9 @@ scenariobuilder = ->
       briefing = scenario['briefing']
       timeBudget = scenario['timeBudger']
       moneyBudget = scenario['moneyBudget']
-      roles = scenario['roles']
+      window.roles = scenario['roles']
+
+      console.log roles
 
       this.draw()
 
@@ -192,15 +197,15 @@ scenariobuilder = ->
         alert "Request failed: " + textStatus
 
     getRoles: (obj) ->
-      if this.roles == []
+      if window.roles.length == 0
         $(".role").each ->
           role =
             name: $(this).find("#form-scenario-role-name").val()
             role: $(this).find("#form-scenario-role-role").val()
             description: $(this).find("#form-scenario-role-description").val()
-          this.roles.push role
+          window.roles.push role
 
-      this.roles
+      return window.roles
 
     draw: (obj) ->
 
@@ -299,14 +304,11 @@ scenariobuilder = ->
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
 
-    # TODO: MAAK DIT EEN MOOIE FUNCTIE
     $("#select-roles").empty()
 
-    $(".role").each ->
-      name = $(this).find("#form-scenario-role-name").val()
-      role = $(this).find("#form-scenario-role-role").val()
-
-      $("#select-roles").append('<option>'+ role + ' (' + name + ')</option>')
+    $.each window.roles, (index, value) ->
+      role = value
+      $("#select-roles").append('<option>'+ role.role + ' (' + role.name + ')</option>')
 
     $("#standard-response").val(node.content)
 
@@ -322,17 +324,10 @@ scenariobuilder = ->
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
 
-    # TODO: MAAK DIT EEN MOOIE FUNCTIE
     $("#select-roles").empty()
-
-    $(".role").each ->
-      name = $(this).find("#form-scenario-role-name").val()
-      role = $(this).find("#form-scenario-role-role").val()
-
-      $("#select-roles").append('<option>'+ role + ' (' + name + ')</option>')
-
-    # scenario.addNode("question", id, "dit is een test")
-    # scenario.draw()
+    $.each window.roles, (index, value) ->
+      role = value
+      $("#select-roles").append('<option>'+ role.role + ' (' + role.name + ')</option>')
 
   $(document.body).on "click", ".add-choice", (e) ->
     e.preventDefault()
@@ -401,6 +396,7 @@ scenariobuilder = ->
   $("#form-scenario-new").click ->
     briefing = $("#form-scenario-briefing").val()
     window.scenario = new Scenario(window.obj = {}, briefing)
+    scenario.getRoles(window.obj)
     scenario.draw()
     $("#scenario-briefing").hide()
     $("#scenario-builder-wrapper").show()
