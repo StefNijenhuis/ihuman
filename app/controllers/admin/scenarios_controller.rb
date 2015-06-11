@@ -11,6 +11,7 @@ class Admin::ScenariosController < ApplicationController
 
   def create
     @scenario = Scenario.new(scenario_params)
+    # @scenario.content =
     if @scenario.save
       redirect_to @scenario
     end
@@ -19,7 +20,7 @@ class Admin::ScenariosController < ApplicationController
   def ajax_save
     json = request.POST['data']
     obj = JSON.parse json
-    name = obj["name"]
+    title = obj["title"]
     # obj["scenario"]['briefing']['content']
 
     render :json => {success:"Joy"}
