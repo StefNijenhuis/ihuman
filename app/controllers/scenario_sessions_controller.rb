@@ -13,7 +13,15 @@ class ScenarioSessionsController < ApplicationController
     @scenario_session.teacher = current_user
     if @scenario_session.save
 
+
+
     end
+  end
+
+  def send_briefing
+    @briefing = Message.new
+    content = "Hallo dit is content"
+    @briefing.content = content
   end
 
   private
