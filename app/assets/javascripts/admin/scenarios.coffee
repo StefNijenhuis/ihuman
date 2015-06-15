@@ -7,6 +7,7 @@ scenariobuilder = ->
   linkParentId = null
   linkQueue = []
   activeid = null
+  window.roles = []
 
   ### Configuration ###
   wrapper = $("#scenario-builder-wrapper")
@@ -37,14 +38,24 @@ scenariobuilder = ->
 
   class Scenario
     idCount = 0
-    name = null
+    title = null
     briefing = null
     timeBudget = null
     moneyBudget = null
-    roles = []
+    window.scenarioId = null
 
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
+
+    debug: ->
+      console.log idCount
+      console.log title
+      console.log briefing
+      console.log timeBudget
+      console.log moneyBudget
+      console.log window.scenarioId
+      console.log roles
+
 
     addNode: (@type, @parent, @content) ->
 
@@ -114,7 +125,7 @@ scenariobuilder = ->
 
     save: ->
       # Get values from DOM if not stored in JS yet (new scenario vs load)
-      name = $("#form-scenario-title").val()  if name is null
+      title = $("#form-scenario-title").val()  if title is null
       briefing = $("#form-scenario-briefing").val()  if briefing is null
       timeBudget = $("#form-scenario-time-budget").val()  if timeBudget is null
       moneyBudget = $("#form-scenario-money-budget").val()  if moneyBudget is null
@@ -124,12 +135,13 @@ scenariobuilder = ->
           role =
             name: $(this).find("#form-scenario-role-name").val()
             role: $(this).find("#form-scenario-role-role").val()
+
             description: $(this).find("#form-scenario-role-description").val()
           roles.push role
 
       # Create a temp. scenario object
       scenario =
-        name: name
+        title: title
         idCount: idCount
         briefing: briefing
         timeBudget: timeBudget
@@ -139,51 +151,61 @@ scenariobuilder = ->
       scenario['scenario'] = @obj
       JSON.stringify(scenario)
 
-    load: (obj) ->
-      json = JSON.parse( obj )
-      @obj = json['scenario']
+    load: (obj, id) ->
+      json = JSON.parse( obj.responseText )
+      scenario = JSON.parse(json.data)
+      window.scenarioId = id
+      @obj = scenario['scenario']
       window.obj = @obj
 
-      name: json['name']
-      idCount: json['idCount']
-      briefing: json['briefing']
-      timeBudget: json['timeBudger']
-      moneyBudget: json['moneyBudget']
-      roles: json['roles']
+      title = scenario['title']
+      idCount = scenario['idCount']
+      briefing = scenario['briefing']
+      timeBudget = scenario['timeBudger']
+      moneyBudget = scenario['moneyBudget']
+      window.roles = scenario['roles']
+
+      console.log roles
 
       this.draw()
 
-    ajax_save: (obj) ->
+    ajax_save: (obj, id) ->
+      id = (if typeof id isnt "undefined" then id else window.scenarioId)
+
       request = $.ajax
         type: "POST",
         dataType: "json"
         url: "/admin/scenarios/ajax_save"
-        data: "data=" + obj
+        data: "data=" + obj + "&id=" + id
 
       request.done (data) ->
-        console.log data.success
+        window.scenarioId = data.id
 
       request.fail (jqXHR, textStatus) ->
         alert "Request failed: " + textStatus
 
-    ajax_load: ->
-      console.log("hi")
-      $.ajax
+    ajax_load: (id) ->
+      request = $.ajax
         dataType: "json"
-        url: url
-        data: data
-        success: success
+        url: "/admin/scenarios/ajax_load"
+        data: "id=" + id
+
+      request.done (data) ->
+        return data
+
+      request.fail (jqXHR, textStatus) ->
+        alert "Request failed: " + textStatus
 
     getRoles: (obj) ->
-      if this.roles == []
+      if window.roles.length == 0
         $(".role").each ->
           role =
             name: $(this).find("#form-scenario-role-name").val()
             role: $(this).find("#form-scenario-role-role").val()
             description: $(this).find("#form-scenario-role-description").val()
-          this.roles.push role
+          window.roles.push role
 
-      this.roles
+      return window.roles
 
     draw: (obj) ->
 
@@ -282,14 +304,11 @@ scenariobuilder = ->
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
 
-    # TODO: MAAK DIT EEN MOOIE FUNCTIE
     $("#select-roles").empty()
 
-    $(".role").each ->
-      name = $(this).find("#form-scenario-role-name").val()
-      role = $(this).find("#form-scenario-role-role").val()
-
-      $("#select-roles").append('<option>'+ role + ' (' + name + ')</option>')
+    $.each window.roles, (index, value) ->
+      role = value
+      $("#select-roles").append('<option>'+ role.role + ' (' + role.name + ')</option>')
 
     $("#standard-response").val(node.content)
 
@@ -305,17 +324,10 @@ scenariobuilder = ->
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
 
-    # TODO: MAAK DIT EEN MOOIE FUNCTIE
     $("#select-roles").empty()
-
-    $(".role").each ->
-      name = $(this).find("#form-scenario-role-name").val()
-      role = $(this).find("#form-scenario-role-role").val()
-
-      $("#select-roles").append('<option>'+ role + ' (' + name + ')</option>')
-
-    # scenario.addNode("question", id, "dit is een test")
-    # scenario.draw()
+    $.each window.roles, (index, value) ->
+      role = value
+      $("#select-roles").append('<option>'+ role.role + ' (' + role.name + ')</option>')
 
   $(document.body).on "click", ".add-choice", (e) ->
     e.preventDefault()
@@ -338,8 +350,8 @@ scenariobuilder = ->
     scenario.removeNode(id, window.obj.briefing)
 
   $(document.body).on "click", "#form-scenario-save", ->
-    json = this.save(window.obj)
-    this.ajax_save(json, scenarioId)
+    json = scenario.save(window.obj)
+    scenario.ajax_save(json, window.scenarioId)
 
 
   $(document.body).on "click", "fc-node", (e) ->
@@ -384,6 +396,7 @@ scenariobuilder = ->
   $("#form-scenario-new").click ->
     briefing = $("#form-scenario-briefing").val()
     window.scenario = new Scenario(window.obj = {}, briefing)
+    scenario.getRoles(window.obj)
     scenario.draw()
     $("#scenario-briefing").hide()
     $("#scenario-builder-wrapper").show()
