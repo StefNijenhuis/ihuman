@@ -47,16 +47,6 @@ scenariobuilder = ->
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
 
-    debug: ->
-      console.log idCount
-      console.log title
-      console.log briefing
-      console.log timeBudget
-      console.log moneyBudget
-      console.log window.scenarioId
-      console.log roles
-
-
     addNode: (@type, @parent, @content) ->
 
       switch @type
