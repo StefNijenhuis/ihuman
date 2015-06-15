@@ -12,16 +12,23 @@ class ScenarioSessionsController < ApplicationController
     @scenario_session = ScenarioSession.new(scenario_session_params)
     @scenario_session.teacher = current_user
     if @scenario_session.save
-
-
-
+      send_briefing(@scenario_session)
+      receiver_name = User.where(id: @scenario_session.student_id).first.fullname
+      flash[:notice] = "De briefing is verstuurd naar #{receiver_name}"
+      redirect_to admin_scenarios_path
     end
   end
 
-  def send_briefing
+  def send_briefing(scenario_session)
     @briefing = Message.new
-    content = "Hallo dit is content"
-    @briefing.content = content
+    scenario = Scenario.where(id: scenario_session.scenario_id).first
+    obj = JSON.parse scenario.content
+    @briefing.content = obj["scenario"]['briefing']['content']
+    @briefing.sender_id = scenario_session.teacher_id
+    @briefing.scenario_session_id = scenario_session.id
+    @briefing.role = ""
+    @briefing.send_at = Time.now.to_datetime
+    @briefing.save
   end
 
   private
