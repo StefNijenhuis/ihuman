@@ -54,68 +54,105 @@
 
 #scenario-builder-wrapper
   div class="row clearfix"
-    div class="col-md-10"
+    div class="col-md-9"
       #scenario-builder
-    div class="col-md-2 builder-sidebar"
+    div class="col-md-3 builder-sidebar"
+      / Templates go here
 
-      button type="submit" class="btn btn-primary" id="form-scenario-save" Scenario opslaan
+/ Webcomponents Templates
+template id="form-contact-template"
+  h3 Contact bewerken
+  form
+    p
+      label Contact
+      select
+        option selected="selected" disabled="disabled" Selecteer een contact
+        option Rol
+    p
+      label Uren
+      input type="text" placeholder="Aantal uur"
+    p
+      label Kosten
+      input type="text" placeholder="Kosten in Euro"
+    p
+      label Standaard respons
+      textarea placeholder="Vul hier de standaard respons in"
+    span class="optional" &#42;optioneel
+    button type="submit" Opslaan
 
-    template id="form-contact-template"
-      h3 Contact bewerken
-      form
-        p
-          label Contact
-          select
-            option selected="selected" disabled="disabled" Selecteer een contact
-            option Rol
-        p
-          label Uren
-          input type="text" placeholder="Aantal uur"
-        p
-          label Kosten
-          input type="text" placeholder="Kosten in Euro"
-        p
-          label Standaard respons
-          textarea placeholder="Vul hier de standaard respons in"
-        span class="optional" &#42;optioneel
-        button type="submit" Opslaan
+template id="form-add-choice"
+  h3 Nieuwe keuze
+  form
+    p
+      label Contact met
+      select id="select-roles"
 
-    template id="form-add-choice"
-      h3 Nieuwe keuze
-      form
-        p
-          label Contact met
-          select id="select-roles"
+    / p
+    /   label Uren
+    /   input type="text" placeholder="Aantal uur"
+    / p
+    /   label Kosten
+    /   input type="text" placeholder="Kosten in Euro"
+    p
+      label Standaard respons
+      textarea id="standard-response" placeholder="Vul hier de standaard respons in"
+    span class="optional" &#42;optioneel
+    button type="submit" class="add-choice" Toevoegen
 
-        / p
-        /   label Uren
-        /   input type="text" placeholder="Aantal uur"
-        / p
-        /   label Kosten
-        /   input type="text" placeholder="Kosten in Euro"
-        p
-          label Standaard respons
-          textarea id="standard-response" placeholder="Vul hier de standaard respons in"
-        span class="optional" &#42;optioneel
-        button type="submit" class="add-choice" Toevoegen
+template id="form-add-situation"
+  h3 Nieuwe situatie
+  form
+    p
+      label Bericht
+      textarea id="standard-response" placeholder="Vul hier het bericht in"
+    button type="submit" class="add-situation" Toevoegen
 
-    template id="form-edit-choice"
-      h3 Keuze wijzigen
-      form
-        p
-          label Contact met
-          select id="select-roles"
+template id="form-edit-scenario"
+  h3 Scenario Wijzigen
+  form
+    .field
+      label for="form-scenario-title" Scenario naam
+      br
+      input type="text" id="form-scenario-title"
 
-        / p
-        /   label Uren
-        /   input type="text" placeholder="Aantal uur"
-        / p
-        /   label Kosten
-        /   input type="text" placeholder="Kosten in Euro"
-        p
-          label Standaard respons
-          textarea id="standard-response" placeholder="Vul hier de standaard respons in"
-        span class="optional" &#42;optioneel
-        button type="submit" class="edit-choice" Aanpassen
+    .field
+      label for="form-scenario-briefing" Scenario briefing
+      br
+      textarea id="form-scenario-briefing"
+      br
+      br
+  h3 Factoren
 
+  p Deze factoren zijn optioneel.
 
+  form
+    .field
+      label for="form-scenario-time-budget" Tijdsbudget
+      br
+      input type="text" id="form-scenario-time-budget" placeholder="Uur .."
+
+    .field
+      label for="form-scenario-money-budget" Geldbudget
+      br
+      input type="text" id="form-scenario-money-budget" placeholder="€ .."
+
+  button type="submit" class="btn btn-primary" id="form-scenario-save" Scenario opslaan
+
+template id="form-edit-choice"
+  h3 Keuze wijzigen
+  form
+    p
+      label Contact met
+      select id="select-roles"
+
+    / p
+    /   label Uren
+    /   input type="text" placeholder="Aantal uur"
+    / p
+    /   label Kosten
+    /   input type="text" placeholder="Kosten in Euro"
+    p
+      label Standaard respons
+      textarea id="standard-response" placeholder="Vul hier de standaard respons in"
+    span class="optional" &#42;optioneel
+    button type="submit" class="edit-choice" Aanpassen

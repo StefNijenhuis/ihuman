@@ -60,24 +60,17 @@ fc-node {
   text-transform: uppercase;
   text-shadow: 0px 1px 1px rgba(0,0,0,0.8);
   position: relative;
-}
-
-fc-terminator {
-  background: #2ecc71;
-  border-radius: 100px;
-}
-
-fc-process {
-  background: #3498db;
   border-radius: 3px;
-}
-
-fc-node {
-  border-radius: 3px;
+  word-wrap: break-word;
+  white-space: pre-line;
 }
 
 fc-node.briefing {
   background: #20788e;
+}
+
+fc-node.situation {
+  background: red;
 }
 
 fc-node.choice {

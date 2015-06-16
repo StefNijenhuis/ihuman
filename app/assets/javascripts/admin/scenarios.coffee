@@ -47,7 +47,7 @@ scenariobuilder = ->
     constructor: (@obj, @briefing) ->
       this.addNode("briefing", null, @briefing)
 
-    addNode: (@type, @parent, @content) ->
+    addNode: (@type, @parent, @content, @role) ->
 
       switch @type
         when "briefing"
@@ -73,6 +73,25 @@ scenariobuilder = ->
             type:"choice",
             parent:@parent,
             content:@content,
+            role:@role,
+            children:[],
+            link_to:null
+          };
+
+          parent.children.push child
+        when "situation"
+          if @parent is 0
+            parent = @obj.briefing
+          else
+            parent = this.getObject(@parent, @obj.briefing)
+            parent = parent[0]
+
+          child = {
+            id: idCount++,
+            type:"situation",
+            parent:@parent,
+            content:@content,
+            role:@role,
             children:[],
             link_to:null
           };
@@ -211,7 +230,7 @@ scenariobuilder = ->
       window.flowchart = jsPlumb.getInstance();
 
       # Briefing
-      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-node class=\"briefing\" data-id=\"#{obj.briefing.id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>Briefing</fc-node><ul></ul></li></ul>").appendTo(container);
+      $("<ul><li id=\"node-#{obj.briefing.id}\"><fc-node class=\"briefing\" data-id=\"#{obj.briefing.id}\"><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>Briefing</fc-node><ul></ul></li></ul>").appendTo(container);
 
       flowchart.setSuspendDrawing(true);
 
@@ -254,15 +273,24 @@ scenariobuilder = ->
       for child of obj.children
         el = $("#node-#{obj.id}").children("ul")
 
-        if obj.children[child].link_to == null
-          link = "<fc-link><i class=\"fa fa-link fa-2x\"></i></fc-link>"
-          add = "<fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>"
-        else
-          link = "<fc-link-remove><i class=\"fa fa-chain-broken fa-2x\"></i></fc-link-remove>"
+        if obj.children[child].type == "choice"
           add = ""
-          linkQueue.push {parent:obj.children[child].id,link_to:obj.children[child].link_to}
+          link = ""
 
-        newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"#{obj.children[child].type}\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit>#{link}<fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove>#{add}#{obj.children[child].content}</fc-node><ul></ul></li>").appendTo(el);
+          if !obj.children[child].children.length
+            if obj.children[child].link_to == null
+              link = "<fc-link><i class=\"fa fa-link fa-2x\"></i></fc-link>"
+
+              if !obj.children[child].children.length
+                add = "<fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>"
+
+            else
+              link = "<fc-link-remove><i class=\"fa fa-chain-broken fa-2x\"></i></fc-link-remove>"
+              linkQueue.push {parent:obj.children[child].id,link_to:obj.children[child].link_to}
+
+          newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"choice\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit>#{link}<fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove>#{add}Bericht naar #{obj.children[child].role}</fc-node><ul></ul></li>").appendTo(el);
+        if obj.children[child].type == "situation"
+          newEl = $("<li id=\"node-#{obj.children[child].id}\"><fc-node class=\"situation\" data-id=\"#{obj.children[child].id}\"><fc-edit><i class=\"fa fa-pencil fa-2x\"></i></fc-edit><fc-remove><i class=\"fa fa-trash fa-2x\"></i></fc-remove><fc-add><i class=\"fa fa-plus-circle fa-2x\"></i></fc-add>#{obj.children[child].content.substring(0,60)}...</fc-node><ul></ul></li>").appendTo(el);
 
         scenario.connect(obj.id, obj.children[child].id)
 
@@ -310,18 +338,30 @@ scenariobuilder = ->
     id = parseInt($(this).parent().attr("data-id"))
     activeid = id
     host = document.querySelector('.builder-sidebar')
-    template = document.querySelector('#form-add-choice')
+
+    if $(this).parent().hasClass("briefing") || $(this).parent().hasClass("choice")
+      template = document.querySelector('#form-add-situation')
+    else
+      template = document.querySelector('#form-add-choice')
+
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
 
     $("#select-roles").empty()
     $.each window.roles, (index, value) ->
       role = value
-      $("#select-roles").append('<option>'+ role.role + ' (' + role.name + ')</option>')
+      $("#select-roles").append('<option value="'+ role.role + '">'+ role.role + ' (' + role.name + ')</option>')
+
+  $(document.body).on "click", ".add-situation", (e) ->
+    e.preventDefault()
+    scenario.addNode("situation", activeid, $("#standard-response").val())
+    scenario.draw()
+    $(".builder-sidebar").empty()
 
   $(document.body).on "click", ".add-choice", (e) ->
+    console.log("wtf?")
     e.preventDefault()
-    scenario.addNode("choice", activeid, $("#standard-response").val())
+    scenario.addNode("choice", activeid, $("#standard-response").val(), $("#select-roles").val())
     scenario.draw()
     $(".builder-sidebar").empty()
 
@@ -369,8 +409,14 @@ scenariobuilder = ->
     # node.content = "test"
     # scenario.draw()
 
-  # container.click (e) ->
-  #   return unless e.target is this
+  $("#scenario-builder").click (e) ->
+    return unless e.target is this
+    $(".builder-sidebar").empty()
+    host = document.querySelector('.builder-sidebar')
+    template = document.querySelector('#form-edit-scenario')
+    clone = document.importNode(template.content, true)
+    host.appendChild(clone)
+
 
   $(document.body).on "click", "fc-link-remove", ->
     id = parseInt($(this).parent().attr("data-id"))
@@ -391,6 +437,10 @@ scenariobuilder = ->
     $("#scenario-briefing").hide()
     $("#scenario-builder-wrapper").show()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+    host = document.querySelector('.builder-sidebar')
+    template = document.querySelector('#form-edit-scenario')
+    clone = document.importNode(template.content, true)
+    host.appendChild(clone)
 
   # if $("#scenario-builder").length
   #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
