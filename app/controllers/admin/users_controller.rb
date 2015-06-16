@@ -10,7 +10,16 @@ class Admin::UsersController < ApplicationController
   end
 
   def send_invites
-    emails = params[:emails].split("\r\n")
+
+    emails = params[:emails].split(
+    /\s*[,;]\s* # comma or semicolon, optionally surrounded by whitespace
+    |           # or
+    \s{1,}      # one or more whitespace characters
+    |           # or
+    [\r\n]+     # any number of newline characters
+    /x)
+    # Source: http://stackoverflow.com/questions/8961930/split-on-newlines-and-commas-and-semi-colons
+
     emails.each do |email|
       password = SecureRandom.hex(4)
       user = User.new({
