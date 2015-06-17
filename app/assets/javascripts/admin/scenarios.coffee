@@ -436,6 +436,7 @@ scenariobuilder = ->
     scenario.draw()
     $("#scenario-briefing").hide()
     $("#scenario-builder-wrapper").show()
+    # $("#scenario-builder").attachDragger()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
     host = document.querySelector('.builder-sidebar')
     template = document.querySelector('#form-edit-scenario')
@@ -472,6 +473,26 @@ scenariobuilder = ->
     $(".roles").children(".role").last().attr("data-roleID",roleCount);
 
   addRole()
+
+  $.fn.attachDragger = ->
+    attachment = false
+    lastPosition = undefined
+    position = undefined
+    difference = undefined
+    $($(this).selector).on "mousedown mouseup mousemove", (e) ->
+      if e.type is "mousedown"
+        attachment = true
+        lastPosition = [ e.clientX, e.clientY ]
+      attachment = false  if e.type is "mouseup"
+      if e.type is "mousemove" and attachment is true
+        position = [ e.clientX, e.clientY ]
+        difference = [ (position[0] - lastPosition[0]), (position[1] - lastPosition[1]) ]
+        $(this).scrollLeft $(this).scrollLeft() - difference[0]
+        $(this).scrollTop $(this).scrollTop() - difference[1]
+        lastPosition = [ e.clientX, e.clientY ]
+
+    $(window).on "mouseup", ->
+      attachment = false
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

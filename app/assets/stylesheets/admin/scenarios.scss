@@ -35,10 +35,11 @@ main {
   margin: 0;
   width: 100%;
   margin: 0 auto;
+  list-style-type:none;
+  white-space:nowrap;
 }
 
 #scenario-builder li {
-  float: left;
   text-align: center;
   list-style-type: none;
   position: relative;
@@ -65,16 +66,18 @@ fc-node {
   white-space: pre-line;
 }
 
+$scenario-color: #2b8fa8;
+
 fc-node.briefing {
-  background: #20788e;
+  background: darken($scenario-color, 10% );
 }
 
 fc-node.situation {
-  background: red;
+  background: lighten( $scenario-color, 3% );
 }
 
 fc-node.choice {
-  background: #2b9bb7;
+  background: lighten( $scenario-color, 15% );
 }
 
 fc-add, fc-remove, fc-edit, fc-link, fc-link-remove {
@@ -170,7 +173,8 @@ legend.roles {
   z-index: 1000;
   position: fixed;
   right: 0;
-  width: 205px;
+  width: 330px;
+  padding: 14px;
   background-color: #fff;
 }
 
