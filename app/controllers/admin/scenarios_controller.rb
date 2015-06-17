@@ -9,6 +9,10 @@ class Admin::ScenariosController < ApplicationController
     @scenario = Scenario.new
   end
 
+  def edit
+    @scenario = params[:id]
+  end
+
   # def create
   #   @scenario = Scenario.new(scenario_params)
   #   if @scenario.save

@@ -13,7 +13,7 @@ div class="row clearfix"
       tbody class="row-body"
         - @scenarios.each do |scenario|
           tr
-            td.title = scenario.title
+            td.title = link_to scenario.title, edit_admin_scenario_path(scenario.id)
             td.description = scenario.description
             td
 

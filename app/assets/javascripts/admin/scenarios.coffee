@@ -161,8 +161,7 @@ scenariobuilder = ->
       JSON.stringify(scenario)
 
     load: (obj, id) ->
-      json = JSON.parse( obj.responseText )
-      scenario = JSON.parse(json.data)
+      scenario = JSON.parse(obj.data)
       window.scenarioId = id
       @obj = scenario['scenario']
       window.obj = @obj
@@ -173,8 +172,6 @@ scenariobuilder = ->
       timeBudget = scenario['timeBudger']
       moneyBudget = scenario['moneyBudget']
       window.roles = scenario['roles']
-
-      console.log roles
 
       this.draw()
 
@@ -199,8 +196,8 @@ scenariobuilder = ->
         url: "/admin/scenarios/ajax_load"
         data: "id=" + id
 
-      request.done (data) ->
-        return data
+      request.success (response, status, xhr)->
+        scenario.load(response, id)
 
       request.fail (jqXHR, textStatus) ->
         alert "Request failed: " + textStatus
@@ -356,14 +353,13 @@ scenariobuilder = ->
     e.preventDefault()
     scenario.addNode("situation", activeid, $("#standard-response").val())
     scenario.draw()
-    $(".builder-sidebar").empty()
+    showEditScenario()
 
   $(document.body).on "click", ".add-choice", (e) ->
-    console.log("wtf?")
     e.preventDefault()
     scenario.addNode("choice", activeid, $("#standard-response").val(), $("#select-roles").val())
     scenario.draw()
-    $(".builder-sidebar").empty()
+    showEditScenario()
 
   $(document.body).on "click", ".edit-choice", (e) ->
     e.preventDefault()
@@ -373,7 +369,7 @@ scenariobuilder = ->
       node = scenario.getObject(activeid, obj.briefing)[0]
     node.content = $("#standard-response").val()
     scenario.draw()
-    $(".builder-sidebar").empty()
+    showEditScenario()
 
   $(document.body).on "click", "fc-remove", ->
     id = parseInt($(this).parent().attr("data-id"))
@@ -409,8 +405,7 @@ scenariobuilder = ->
     # node.content = "test"
     # scenario.draw()
 
-  $("#scenario-builder").click (e) ->
-    return unless e.target is this
+  showEditScenario = ->
     $(".builder-sidebar").empty()
     host = document.querySelector('.builder-sidebar')
     template = document.querySelector('#form-edit-scenario')
@@ -438,10 +433,17 @@ scenariobuilder = ->
     $("#scenario-builder-wrapper").show()
     # $("#scenario-builder").attachDragger()
     $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
-    host = document.querySelector('.builder-sidebar')
-    template = document.querySelector('#form-edit-scenario')
-    clone = document.importNode(template.content, true)
-    host.appendChild(clone)
+    showEditScenario()
+
+  # Scenario loading
+  if container.attr("data-load_id")
+    id = parseInt(container.attr("data-load_id"))
+    window.scenario = new Scenario(window.obj = {}, "")
+    scenario.ajax_load(id)
+
+    $("#scenario-builder-wrapper").show()
+    $("#wrapper").scrollTop(0).toggleClass "toggled" if !$("#wrapper").hasClass("toggled")
+    showEditScenario()
 
   # if $("#scenario-builder").length
   #   window.scenario = new Scenario(window.obj = {}, "Dit is de briefing");
@@ -464,13 +466,14 @@ scenariobuilder = ->
 
   roleCount = 0;
   addRole = ->
-    host = document.querySelector('.insert-roles')
-    template = document.querySelector('#role-template')
-    clone = document.importNode(template.content, true)
-    host.appendChild(clone)
-    roleCount++
-    $(".roles").children(".role").last().children("h4").text("Rol " + roleCount)
-    $(".roles").children(".role").last().attr("data-roleID",roleCount);
+    if $("#scenario-briefing").length
+      host = document.querySelector('.insert-roles')
+      template = document.querySelector('#role-template')
+      clone = document.importNode(template.content, true)
+      host.appendChild(clone)
+      roleCount++
+      $(".roles").children(".role").last().children("h4").text("Rol " + roleCount)
+      $(".roles").children(".role").last().attr("data-roleID",roleCount);
 
   addRole()
 
