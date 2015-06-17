@@ -30,10 +30,12 @@ User.create(email: 'superadmin@teacher.nl',password: '12345678', password_confir
 ScenarioSession.create(scenario_id: 1, student_id: 5, teacher_id: 14)
 
 #Messages inbox
-Message.create(content: "Hallo dit is een seed bericht", sender_id: 5, scenario_session_id: 1, role: "Programmeur")
+Message.create(content: "Briefing voor project iHuman", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
+Message.create(content: "Hallo Steven Zeemeeuw! ...", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
+Message.create(content: "Dit is een coole app!", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
+Message.create(content: "Nog meer uitroep tekens!!!!", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
 
 #Messages outbox
-Message.create(content: "Hallo dit is een seed bericht", sender_id: 14, scenario_session_id: 1, role: "Programmeur")
 
 #Scenarios
-Scenario.create(roles: 'rol1, rol2, rol3, rol4')
+Scenario.create()
