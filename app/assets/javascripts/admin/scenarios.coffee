@@ -411,7 +411,10 @@ scenariobuilder = ->
     template = document.querySelector('#form-edit-scenario')
     clone = document.importNode(template.content, true)
     host.appendChild(clone)
-
+    $("#form-edit-scenario-title").val($("#form-scenario-title").val())
+    $("#form-edit-scenario-briefing").val($("#form-scenario-briefing").val())
+    $("#form-edit-scenario-time-budget").val($("#form-scenario-time-budget").val())
+    $("#form-edit-scenario-money-budget").val($("#form-scenario-money-budget").val())
 
   $(document.body).on "click", "fc-link-remove", ->
     id = parseInt($(this).parent().attr("data-id"))
@@ -422,7 +425,6 @@ scenariobuilder = ->
 
   $(document.body).on "click", "fc-link", ->
     linkParentId = parseInt($(this).parent().attr("data-id"))
-    alert "nu mag je op een node klikken"
 
   $("#form-scenario-new").click ->
     briefing = $("#form-scenario-briefing").val()

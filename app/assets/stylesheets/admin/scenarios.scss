@@ -73,11 +73,11 @@ fc-node.briefing {
 }
 
 fc-node.situation {
-  background: lighten( $scenario-color, 3% );
+  background: lighten( $scenario-color, 10% );
 }
 
 fc-node.choice {
-  background: lighten( $scenario-color, 15% );
+  background: lighten( $scenario-color, 30% );
 }
 
 fc-add, fc-remove, fc-edit, fc-link, fc-link-remove {
