@@ -48,6 +48,7 @@ Rails.application.routes.draw do
     collection do
       get 'inbox'
       get 'outbox'
+      get 'reply'
     end
   end
 

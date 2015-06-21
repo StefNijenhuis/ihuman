@@ -6,17 +6,16 @@ div class="row clearfix"
     table class="table table-striped"
       thead class="row-head"
         tr
-          th: input type="checkbox"
           th Afzender
           th Bericht
           th Tijdstip
       tbody class="row-body"
         - @messages.each do |message|
           tr
-            td: input type="checkbox"
             - if current_user.role == "user"
               td.name = message.role
             - else
               td.name = message.sender.fullname
-            td.content = message.content
+            td.content = link_to message.content, message_path(message.id)
+            / td.content = message.content
             td.date = message.send_at

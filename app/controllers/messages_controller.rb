@@ -16,11 +16,23 @@ class MessagesController < ApplicationController
     @messages = Message.where(sender_id: current_user)
   end
 
+  def show
+    @message = Message.where(id: params[:id]).last
+    @scenario_session_id = @message.scenario_session_id
+    @role = @message.role
+  end
+
+  def reply
+    @reply = Message.new(message_params)
+    @reply.scenario_session_id = @scenario_session_id
+    @reply.role = @role
+    @reply.send_at = Time.now.to_datetime
+    @reply.sender = current_user
+
+    @reply.save
+  end
+
   def new
-    @message = Message.new
-    # @scenario_session_options = ScenarioSession.where(teacher_id: current_user).map{|s| [s.id]}
-    # abort(@scenario_session_options.inspect)
-    # scenario_session has to be set automatically
   end
 
   def create
@@ -37,7 +49,6 @@ class MessagesController < ApplicationController
 
   private
     def message_params
-      params.require(:message).permit(:content, :role, :scenario_session_id)
+      params.require(:message).permit(:content)
     end
-
 end

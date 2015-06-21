@@ -1,1 +1,10 @@
-h2 Dit is een bericht
+div class="row clearfix"
+  div class="col-md-12"
+    p Afzender:
+    = @message.role
+    p Inhoud van bericht:
+    = @message.content
+
+  div class="col-md-12"
+    div class="btn-group reply-message" role="group"
+      = link_to "Reageren", reply_messages_path, {class: "btn btn-primary new-scenario-button"}
