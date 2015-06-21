@@ -48,7 +48,8 @@ Rails.application.routes.draw do
     collection do
       get 'inbox'
       get 'outbox'
-      get 'reply'
+      get '/:id/reply' => 'messages#reply_new', as: :reply
+      post '/:id/reply' => 'messages#reply_create'
     end
   end
 

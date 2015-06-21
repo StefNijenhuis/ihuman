@@ -1,6 +1,6 @@
 div class="row clearfix"
   div class="col-md-12"
-    = form_for @reply, :url => reply_messages_path(@reply), method: :post do |f|
+    = form_for @reply, :url => reply_messages_path(@message), method: :post do |f|
 
       .field
         = f.label :content

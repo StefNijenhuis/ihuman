@@ -22,7 +22,12 @@ class MessagesController < ApplicationController
     @role = @message.role
   end
 
-  def reply
+  def reply_new
+    @message = Message.where(id: params[:id]).last
+    @reply = Message.new
+  end
+
+  def reply_create
     @reply = Message.new(message_params)
     @reply.scenario_session_id = @scenario_session_id
     @reply.role = @role
@@ -30,6 +35,9 @@ class MessagesController < ApplicationController
     @reply.sender = current_user
 
     @reply.save
+
+    redirect_to inbox_messages_path
+    # Regel die melding meuk zelf maar
   end
 
   def new
