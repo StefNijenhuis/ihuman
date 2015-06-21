@@ -36,8 +36,8 @@ class MessagesController < ApplicationController
 
     @reply.save
 
+    flash[:notice] = "Het bericht is verstuurd"
     redirect_to inbox_messages_path
-    # Regel die melding meuk zelf maar
   end
 
   def new
