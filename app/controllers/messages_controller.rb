@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.where(id: params[:id]).last
-    @role = @message.role
+    $role = @message.role
   end
 
   def reply_new
@@ -30,7 +30,7 @@ class MessagesController < ApplicationController
   def reply_create
     @reply = Message.new(message_params)
     @reply.scenario_session_id = $session_id
-    @reply.role = @role
+    @reply.role = $role
     @reply.send_at = Time.now.to_datetime
     @reply.sender = current_user
 
