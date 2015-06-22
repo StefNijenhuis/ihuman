@@ -18,18 +18,18 @@ class MessagesController < ApplicationController
 
   def show
     @message = Message.where(id: params[:id]).last
-    @scenario_session_id = @message.scenario_session_id
     @role = @message.role
   end
 
   def reply_new
     @message = Message.where(id: params[:id]).last
     @reply = Message.new
+    $session_id = @message.scenario_session_id
   end
 
   def reply_create
     @reply = Message.new(message_params)
-    @reply.scenario_session_id = @scenario_session_id
+    @reply.scenario_session_id = $session_id
     @reply.role = @role
     @reply.send_at = Time.now.to_datetime
     @reply.sender = current_user
