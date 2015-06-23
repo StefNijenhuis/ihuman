@@ -37,6 +37,9 @@ class Admin::ScenariosController < ApplicationController
 
     if @scenario.save
       render :json => {status: "success", id: @scenario.id}
+      # TODO: Redirect to scenario index
+      # flash[:notice] = "Scenario is opgeslagen"
+      # redirect_to admin_scenarios_path
     else
       render :json => {status: "fail"}
     end
