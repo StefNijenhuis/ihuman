@@ -4,6 +4,8 @@ ready = ->
 
 scenariobuilder = ->
 
+  # Global Vars
+
   linkParentId = null
   linkQueue = []
   activeid = null
@@ -36,6 +38,7 @@ scenariobuilder = ->
       midpoint: 0.5
      ]
 
+  # Scenario
   class Scenario
     idCount = 0
     title = null
@@ -102,19 +105,19 @@ scenariobuilder = ->
       item = this.getObject(val, obj, true)
       this.draw()
 
+    # Find id (val) in scenario object, optional remove boolean if it has to be removed
     getObject: (val, obj, remove) ->
       remove = (if typeof remove isnt "undefined" then remove else false)
       obj = (if typeof obj isnt "undefined" then obj else @obj)
       object = []
 
-      #for child of obj.children # for each item in children
       i = 0
       while i < obj.children.length
         if typeof obj.children[i] is "undefined"
           i++
           continue
         if obj.children[i].id is val # check if item.id matches val
-          if remove
+          if remove # Remove it if we want that
             delete obj.children[i]
             obj.children.length--
             object.push true
@@ -213,6 +216,7 @@ scenariobuilder = ->
 
       return window.roles
 
+    # Generate the scenario DOM
     draw: (obj) ->
 
       obj = (if typeof obj isnt "undefined" then obj else @obj)
@@ -265,6 +269,7 @@ scenariobuilder = ->
         #   container.height(window.innerHeight - $('.navbar').height())
 
 
+    # Part of draw(), draws the child nodes
     children: (obj) ->
 
       for child of obj.children
@@ -397,13 +402,6 @@ scenariobuilder = ->
 
       scenario.draw()
       return
-
-    # if id == 0
-    #   node = obj.briefing
-    # else
-    #   node = scenario.getObject(id, obj.briefing)[0]
-    # node.content = "test"
-    # scenario.draw()
 
   showEditScenario = ->
     $(".builder-sidebar").empty()
