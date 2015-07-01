@@ -26,7 +26,7 @@ class ScenarioSessionsController < ApplicationController
     @briefing.content = obj["scenario"]['briefing']['content']
     @briefing.sender_id = scenario_session.teacher_id
     @briefing.scenario_session_id = scenario_session.id
-    @briefing.role = ""
+    @briefing.role = "Opdracht gever"
     @briefing.send_at = Time.now.to_datetime
     @briefing.save
   end
