@@ -17,16 +17,18 @@ div class="row clearfix"
             td.title = link_to scenario.title, edit_admin_scenario_path(scenario.id)
             td.description = scenario.description
             td
-    h1 Lopende sessies
+    h1 Simulaties
     table class="table table-striped"
       thead class="row-head"
         tr
           th Projectnaam
           th Student
-          th Sorteer
+          th Start datum
+          th Eind datum
       tbody class="row-body"
         - @scenario_sessions.each do |scenario_session|
           tr
             td.title = scenario_session.scenario.title
             td.student = scenario_session.student.fullname
-            td
+            td.start = scenario_session.start_date
+            td.end = scenario_session.end_date.present? ? ("#{scenario_session.end_date}") : ("N.V.T.")
