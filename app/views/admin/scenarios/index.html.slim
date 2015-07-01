@@ -4,6 +4,7 @@ div class="row clearfix"
       = link_to "Nieuw scenario", new_admin_scenario_path, {class: "btn btn-primary new-scenario-button"}
     div class="btn-group new-message" role="group"
       = link_to "Nieuw scenario sessie", new_scenario_session_path, {class: "btn btn-primary new-scenario-button"}
+    h1 Sceanrio's
     table class="table table-striped"
       thead class="row-head"
         tr
@@ -16,4 +17,16 @@ div class="row clearfix"
             td.title = link_to scenario.title, edit_admin_scenario_path(scenario.id)
             td.description = scenario.description
             td
-
+    h1 Lopende sessies
+    table class="table table-striped"
+      thead class="row-head"
+        tr
+          th Projectnaam
+          th Student
+          th Sorteer
+      tbody class="row-body"
+        - @scenario_sessions.each do |scenario_session|
+          tr
+            td.title = scenario_session.scenario.title
+            td.student = scenario_session.student.fullname
+            td

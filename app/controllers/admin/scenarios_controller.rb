@@ -3,6 +3,7 @@ class Admin::ScenariosController < ApplicationController
 
   def index
     @scenarios = Scenario.all
+    @scenario_sessions = ScenarioSession.all
   end
 
   def new
