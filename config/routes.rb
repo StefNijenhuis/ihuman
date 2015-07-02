@@ -40,7 +40,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :scenarios
+  resources :scenarios do
+    collection do
+      get 'update_progress'
+    end
+  end
 
   resources :scenario_sessions
 

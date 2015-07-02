@@ -8,6 +8,10 @@ class ScenarioSessionsController < ApplicationController
     @scenario_session = ScenarioSession.new
   end
 
+  def show
+    @scenario_session = ScenarioSession.where(id: params[:id]).last
+  end
+
   def create
     @scenario_session = ScenarioSession.new(scenario_session_params)
     @scenario_session.teacher = current_user
@@ -29,6 +33,44 @@ class ScenarioSessionsController < ApplicationController
     @briefing.role = "Opdracht gever"
     @briefing.send_at = Time.now.to_datetime
     @briefing.save
+    update_progress
+  end
+
+  def update_progress
+    # TODO: Figure out what the current id is
+    #       Set the progress to the id of the next element in the scenario
+    scenario = Scenario.where(id: @scenario_session.scenario_id).first
+    obj = JSON.parse scenario.content
+
+    if @scenario_session.progress == 0
+      @scenario_session.progress = 1
+    else
+
+    end
+
+
+    # @scenario_session.progress = obj["scenario"]['']
+    if @scenario_session.save
+      send_situation(@scenario_session)
+      receiver_name = User.where(id: @scenario_session.student_id).first.fullname
+      flash[:notice] = "De nieuwe situatie is verstuurd naar #{receiver_name}"
+      redirect_to inbox_messages_path
+    end
+
+  end
+
+  def send_situation(scenario_session)
+    # TODO: Figure out which situation has te be send
+
+    @situation = Message.new
+    scenario = Scenario.where(id: scenario_session.scenario_id).first
+    obj = JSON.parse scenario.content
+    # @situation.content = obj["scenario"]['']
+    @situation.sender_id = scenario_session.teacher_id
+    @situation.scenario_session_id = scenario_session.id
+    @situation.role = ""
+    @situation.send_at = Time.now.to_datetime
+    @situation.save
   end
 
   private

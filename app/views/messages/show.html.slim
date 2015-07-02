@@ -8,3 +8,7 @@ div class="row clearfix"
   div class="col-md-12"
     div class="btn-group reply-message" role="group"
       = link_to "Reageren", reply_messages_path, {class: "btn btn-primary new-scenario-button"}
+  - if current_user.role == "superadmin" || current_user.role == "admin"
+    div class="col-md-12"
+      div class="btn-group show-session" role="group"
+        = link_to "Sessie", scenario_session_path(@message.scenario_session_id), {class: "btn btn-primary new-scenario-button"}

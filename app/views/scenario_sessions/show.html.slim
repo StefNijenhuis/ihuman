@@ -1,1 +1,8 @@
-h2 Dit is een scenario sessie!
+div class="row clearfix"
+  div class="col-md-12"
+    h2 Scenario: #{@scenario_session.scenario.title}
+    h2 Student: #{@scenario_session.student.fullname}
+    h2 Docent: #{@scenario_session.teacher.fullname}
+    div class="btn-group new-message" role="group"
+      = link_to "Volgende stap", update_progress_scenarios_path, {class: "btn btn-primary new-scenario-button"}
+

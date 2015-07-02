@@ -28,7 +28,7 @@ div class="row clearfix"
       tbody class="row-body"
         - @scenario_sessions.each do |scenario_session|
           tr
-            td.title = scenario_session.scenario.title
+            td.title = link_to scenario_session.scenario.title, scenario_session_path(scenario_session.id)
             td.student = scenario_session.student.fullname
             td.start = scenario_session.start_date
             td.end = scenario_session.end_date.present? ? ("#{scenario_session.end_date}") : ("N.V.T.")
