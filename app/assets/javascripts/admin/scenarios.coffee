@@ -189,6 +189,8 @@ scenariobuilder = ->
 
       request.done (data) ->
         window.scenarioId = data.id
+        $('<div class="alert alert-info"><strong>Melding:</strong> Scenario opgeslagen</div>')
+          .hide().appendTo("nav").fadeIn(500).delay(2500).fadeOut(500);
 
       request.fail (jqXHR, textStatus) ->
         alert "Request failed: " + textStatus
